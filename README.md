@@ -1,7 +1,6 @@
 # gp2
 Class project 2
 
-
                             "The Barker"--Whatever the app is called
 
 Requirements:
