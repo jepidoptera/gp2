@@ -1,13 +1,24 @@
 var db = require("../models");
+var path = require("path");
 
 module.exports = function(app) {
     // Load index page
-    app.get("/", function(req, res) {
-        db.Doge.findAll().then(function(dogs) {
-        res.render("index", {
-            msg: "Welcome!",
-            dogs: dogs
-        });
+    app.get("/", function (req, res) {
+        res.sendFile(path.join(__dirname, "..", "public", "signIn", "form.html"));
+    });
+
+    app.get("/home", function(req, res) {
+      res.sendFile(
+        path.join(__dirname, "..", "public", "mainProfile", "dashboard.html")
+      );
+    });
+
+    app.get("/data", function (req, res) {
+        db.Doge.findAll().then(function (dogs) {
+            res.render("index", {
+                msg: "Welcome!",
+                dogs: dogs
+            });
         });
     });
 
