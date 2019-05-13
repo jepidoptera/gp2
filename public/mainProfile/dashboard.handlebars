@@ -114,6 +114,31 @@
             </div>
             <!--/.Card-->
 
+            <!--Card content-->
+            <div class= "col-8 card-body"id="dogmessages">
+                <h3>OTHER DOGES:</h3>
+                <br>
+                <ul>
+                    {{#each otherDogs}}
+                    <li data-id="{{this.id}}" class="list-group-item">
+                        <p>name: {{name}}</p>
+                        <p>breed: {{breed}}</p>
+                        <p>location: {{location}}</p>
+                        <p>description: {{description}}</p>
+                        {{!-- <a href="doge/{{this.id}}">{{this.text}}</a>
+                <button class="btn btn-danger float-right delete">ｘ</button> --}}
+                        <button onclick="window.location.href='/convo/{{../id}}/{{id}}'">
+                            send message
+                        </button>
+                    </li>
+                    {{/each}}
+                </ul>
+                <br>
+    
+            </div>
+
+
+
           </div>
           <!--Grid column-->
         </section>
@@ -126,7 +151,7 @@
 
 
  
-a 
+
  
 
   <!-- SCRIPTS -->
