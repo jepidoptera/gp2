@@ -18,29 +18,20 @@
 </body>
 <script>
     var url = new URL(window.location.href);
-    var user1 = url.searchParams.get("user1");
-    var user2 = url.searchParams.get("user2");
     // get info about the two users involved in this coversation
-    console.log("researching user: " + user1);
-    $.get("/api/doge/" + user1).then(doge1 => {
-        console.log(JSON.stringify(doge1));
-        $.get("/api/doge/" + user2).then(doge2 => {
-            // get all messages between them
-            $.get("/api/messages/convo/" + user1 + "/" + user2).then((messages) => {
-                console.log(messages);
-                messages.forEach(message => {
-                    // append each message from the conversation in order
-                    $("#convo")
-                        .append($("<h3>").text(
-                            message.sender==user1 ?
-                                doge1.name :
-                                doge2.name 
-                            ))
-                        .append($("<p>").text(message.text));                    
-                });
-            });
-        })
-    })
+    $.get("/api/messages/convo/{{doge1.id}}/{{doge2.id}}").then((messages) => {
+        console.log(messages);
+        messages.forEach(message => {
+            // append each message from the conversation in order
+            $("#convo")
+                .append($("<h3>").text(
+                    message.sender=="{{doge1.id}}" ?
+                        "{{doge1.name}}" :
+                        "{{doge2.name}}" 
+                    ))
+                .append($("<p>").text(message.text));                    
+        });
+    });
 </script>
 
 </html>

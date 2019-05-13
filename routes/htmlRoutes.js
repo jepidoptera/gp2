@@ -9,10 +9,11 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "..", "public", "signIn", "form.html"));
     });
 
-    app.get("/home", function(req, res) {
-      res.sendFile(
-        path.join(__dirname, "..", "public", "mainProfile", "dashboard.html")
-      );
+    app.get("/home/:userID", function (req, res) {
+        doges.findOne({ where: { id: req.params.userID } }).then(doge => {
+            // send back info on this doge
+            res.render("dashboard", doge.dataValues);
+        });
     });
 
     app.get("/signup", function (req, res) {
@@ -27,6 +28,7 @@ module.exports = function(app) {
             });
         });
     });
+
 
     app.get("/messages/:userID", function (req, res) {
         // find current user
@@ -49,8 +51,14 @@ module.exports = function(app) {
 
     app.get("/convo/:user1ID/:user2ID", function (req, res) {
         console.log("conversation between " + req.params.user1ID + " and " + req.params.user2ID);
-        
-        res.render("/convo.html", { user1: });
+        // get the names of the two conversants and pass them to the handlebars template
+        db.Doges.findOne({ where: { id: req.params.user1ID } }).then(doge1 => {
+            db.Doges.findOne({ where: { id: req.params.user2ID } }).then(doge2 => {
+                console.log("1 = " + doge1.name);
+                console.log("2 = " + doge2.name);
+                res.render("convo", { doge1: doge1, doge2: doge2 });
+            });
+        });
     });
 
     // Render 404 page for any unmatched routes
