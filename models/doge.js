@@ -1,6 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
-    var Doge = sequelize.define("Doge", {
+    var Doges = sequelize.define("Doges", {
         name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -23,5 +31,5 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN
         },
     });
-    return Doge;
+    return Doges;
 };
