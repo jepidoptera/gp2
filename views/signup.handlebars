@@ -10,7 +10,6 @@
                 <p>name: {{name}}</p>
                 <p>breed: {{breed}}</p>
                 <p>description: {{description}}</p>
-                <hr>
                 {{!-- <a href="doge/{{this.id}}">{{this.text}}</a>
                 <button class="btn btn-danger float-right delete">ｘ</button> --}}
             </li>
@@ -21,6 +20,8 @@
 
             <form action="/api/newdoge" method="post">
                 name: <input type="text" name="name"><br>
+                email: <input type="text" name="location">
+                password: <input type="password" name="password">
                 location: <input type="text" name="location">
                 breed: <input type="text" name="breed"> <br>
                 description: <textarea name="description" rows="5" cols="80"></textarea> <br>
