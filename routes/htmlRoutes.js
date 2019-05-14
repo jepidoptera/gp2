@@ -6,7 +6,8 @@ const Op = require("sequelize").Op;
 module.exports = function(app) {
     // Load index page
     app.get("/", function (req, res) {
-        res.sendFile(path.join(__dirname, "..", "public", "signIn", "form.html"));
+        res.render("welcome", null);
+        // res.sendFile(path.join(__dirname, "..", "public", "signIn", "form.html"));
     });
 
     app.get(git , function (req, res) {
@@ -16,8 +17,14 @@ module.exports = function(app) {
         });
     });
 
+    app.get("/signin/:username", function (req, res) {
+        doges.findOne({ where: { name: req.params.username } }).then(doge => {
+            res.redirect("/home/" + doge.dataValues.id);
+        });
+    });
+
     app.get("/signup", function (req, res) {
-        res.render("signup.handlebars");
+        res.render("register.handlebars");
     });
 
     app.get("/data", function (req, res) {

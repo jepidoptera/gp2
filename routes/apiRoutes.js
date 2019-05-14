@@ -14,13 +14,46 @@ module.exports = function(app) {
     app.post("/api/newdoge", function (req, res) {
         // add a new doge from the form data
         console.log("creating: " + JSON.stringify(req.body));
-        doges.create(req.body);
-        // reload home page
-        res.send(req.body);
+        // do some validation: make sure we're not reusing an email or username
+        doges.findAll({ where: { name: req.body.name } }).then(data => {
+            if (data) {
+                res.status(409).send("username is already taken.");
+                return;
+            } 
+        });
+        doges.findAll({ where: { email: req.body.email } }).then(data => {
+            if (data) {
+                res.status(409).send("email is already taken.");
+                return;
+            }
+        });
+        // no conflicts: create new doge
+        doges.create(req.body).then(data => {
+            // reload home page
+            res.send(data.dataValues);
+        });
     });
 
-    app.get("/api/doge/:userID", function (req, res) {
-        console.log("getting info on user: " + req.params.userID);
+    app.post("/api/login/:userID", function (req, res) {
+
+    });
+
+    app.get("/api/name/:dogename", function (req, res) {
+        // look up by username
+        console.log("getting info on user with name: " + req.params.dogename);
+        doges.findOne({ where: { name: req.params.dogename } }).then(doge => {
+            if (doge) {
+                res.send(doge.dataValues);
+            }
+            else {
+                res.status(404).send("couldn't find that user");
+            }
+        });  
+    });
+
+    app.get("/api/ID/:userID", function (req, res) {
+        // look up by ID
+        console.log("getting info on user with ID: " + req.params.userID);
         doges.findOne({ where: { id: req.params.userID } }).then(doge => {
             // send back info on this doge
             res.send(doge.dataValues);
@@ -85,3 +118,13 @@ module.exports = function(app) {
         });
     });
 };
+
+function randomHexNumber(length) {
+    // get a random hexadecimal number of the specified length
+    var returnVal = "";
+    for (i = 0; i < length; i++) {
+        returnVal += "1234567890abcdef"[Math.floor(Math.random() * 16)];
+    }
+    return returnVal;
+}    
+

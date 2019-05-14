@@ -14,24 +14,46 @@
     <div id="convo">
         <!-- conversation between two users -->
     </div>
-    <div id="chatField"></div>
+    <form id="chatField">
+        <input type="text" id="chatText">
+        <button type="submit" id="sendChat">Send</button>
+    </form>
 </body>
 <script>
     var url = new URL(window.location.href);
+    var latestMessage = 0;
     // get info about the two users involved in this coversation
-    $.get("/api/messages/convo/{{doge1.id}}/{{doge2.id}}").then((messages) => {
-        console.log(messages);
-        messages.forEach(message => {
-            // append each message from the conversation in order
-            $("#convo")
-                .append($("<h3>").text(
-                    message.sender=="{{doge1.id}}" ?
-                        "{{doge1.name}}" :
-                        "{{doge2.name}}" 
-                    ))
-                .append($("<p>").text(message.text));                    
+    $("#sendChat").on('click', (event) => {
+        event.preventDefault();
+        // get text from input field
+        var chat = $("#chatText").val();
+        $("#chatText").empty();
+        // post to server
+        $.post("/api/message", {
+            sender: {{doge1.id}}, 
+            recipient: {{doge2.id}},
+            text: chat    
         });
     });
+    function refreshChat() {
+        $.get("/api/messages/convo/{{doge1.id}}/{{doge2.id}}/" + latestMessage).then((messages) => {
+            console.log(messages);
+            messages.forEach(message => {
+                // append each message from the conversation in order
+                $("#convo")
+                    .append($("<h3>").text(
+                        message.sender == "{{doge1.id}}" ?
+                            "{{doge1.name}}" :
+                            "{{doge2.name}}"
+                    ))
+                    .append($("<p>").text(message.text));
+                // when refreshing, we will only ask for messages which came after this one
+                latestMessage = message.id;
+            });
+        });
+    }
+    // periodically check for new messages
+    setInterval(refreshChat, 1000);
 </script>
 
 </html>

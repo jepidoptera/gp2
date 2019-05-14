@@ -35,6 +35,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       visible: {
         type: DataTypes.BOOLEAN
+        },
+      authtoken: {
+        type: DataTypes.STRING    
       }
     });
     return Doges;
