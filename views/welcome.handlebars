@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <script>
+        function getID() {
+            console.log("looking up: " + $("#username").val());
+            $.get("/api/name/" + $("#username").val()).then(data => {
+                window.location.href = "/home/" + data.id;
+            });
+        }
+    </script>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,11 +18,11 @@
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> -->
   <!-- Bootstrap core CSS -->
-  <link href="signIn/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="signIn/css/mdb.min.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="signIn/css/style.min.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
   <style type="text/css">
     html,
     body,
@@ -68,7 +77,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <!-- Left -->
-                <ul class="navbar-nav mr-auto">
+                {{!-- <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="/home">Home
                             <span class="sr-only">(current)</span>
@@ -86,10 +95,10 @@
                         <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Browse
                             Your Matches</a>
                     </li>
-                </ul>
+                </ul> --}}
 
                 <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
+                {{!-- <ul class="navbar-nav nav-flex-icons">
                     <li class="nav-item">
                         <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
                             <i class="fab fa-facebook-f"></i>
@@ -106,7 +115,7 @@
                             <i class="fab fa-github mr-2"></i>GitHub
                         </a>
                     </li>
-                </ul>
+                </ul> --}}
 
             </div>
 
@@ -166,23 +175,23 @@
                   </h3>
                   <hr>
 
-                  <div class="md-form">
+                  {{!-- <div class="md-form"> --}}
                     <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
-                    <label id="username" for="form3">Username</label>
-                  </div>
+                    <input id="username" type="text" id="form3" class="form-control">
+                    <label for="form3">Username</label>
+                  {{!-- </div> --}}
                 
 
-                  <div class="md-form">
+                  {{!-- <div class="md-form"> --}}
                     <i class="fas fa-pencil-alt prefix grey-text"></i>
                     <textarea type="text" id="form8" class="md-textarea"></textarea>
                     <label for="form8">Password</label>
-                  </div>
+                  {{!-- </div> --}}
 
                   <div class="text-center">
-                    <button class="btn btn-indigo" onclick="getID();">Sign In</button>
+                    <p class="paragraphButton" onclick="getID();">Sign In</p>
                    
-                    <button class="btn btn-indigo" onclick= "window.location.href='/signup'">Sign Up</button>
+                    <p class="paragraphButton" onclick= "window.location.href='/signup'">Sign Up</p>
                     </div>
                   </div>
 
@@ -208,14 +217,6 @@
     <!-- Mask & flexbox options-->
 
 
-    <script>
-        function getID() {
-          $.get( "/api/name/" + $("#username").val()).then(data => {
-            window.location.href = "/home/" + data.id;
-        });
-      }
-    </script>
-
  
 
       
@@ -223,7 +224,7 @@
   <!-- JQuery -->
   <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
+  {{!-- <script type="text/javascript" src="js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
@@ -232,7 +233,7 @@
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
-  </script>
+  </script> --}}
 </body>
 
 </html>
