@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <script>
+        function getID() {
+            console.log("looking up: " + $("#username").val());
+            $.get("/api/name/" + $("#username").val()).then(data => {
+                window.location.href = "/home/" + data.id;
+            });
+        }
+    </script>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,11 +18,11 @@
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> -->
   <!-- Bootstrap core CSS -->
-  <link href="signIn/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="signIn/css/mdb.min.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="signIn/css/style.min.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
   <style type="text/css">
     html,
     body,
@@ -49,96 +58,101 @@
 
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-    <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
 
-      <!-- Brand -->
-      <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>The Barker</strong>
-      </a>
-
-      <!-- Collapse -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <!-- Left -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/home">Home
-              <span class="sr-only">(current)</span>
+            <!-- Brand -->
+            <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+                <strong>The Barker</strong>
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About The Barker</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Browse Your Matches</a>
-          </li>
-        </ul>
 
-        <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
-            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://github.com/jepidoptera/gp2" class="nav-link border border-light rounded"
-              target="_blank">
-              <i class="fab fa-github mr-2"></i>GitHub
-            </a>
-          </li>
-        </ul>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      </div>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-    </div>
-  </nav>
-  <!-- Navbar -->
+                <!-- Left -->
+                {{!-- <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About The
+                            Barker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
+                            target="_blank">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Browse
+                            Your Matches</a>
+                    </li>
+                </ul> --}}
 
-  <!-- Full Page Intro -->
-  <div class="view full-page-intro" style="background-image: url('https://static.nashvillewraps.com/images/sku/P807H-XLARGE.jpg'); background-repeat: no-repeat; background-size: cover;">
+                <!-- Right -->
+                {{!-- <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/jepidoptera/gp2" class="nav-link border border-light rounded"
+                            target="_blank">
+                            <i class="fab fa-github mr-2"></i>GitHub
+                        </a>
+                    </li>
+                </ul> --}}
 
-    <!-- Mask & flexbox options-->
-    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+            </div>
 
-      <!-- Content -->
-      <div class="container">
+        </div>
+    </nav>
+    <!-- Navbar -->
 
-        <!--Grid row-->
-        <div class="row wow fadeIn">
+    <!-- Full Page Intro -->
+    <div class="view full-page-intro"
+        style="background-image: url('https://static.nashvillewraps.com/images/sku/P807H-XLARGE.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-          <!--Grid column-->
-          <div class="col-md-6 mb-4 white-text text-center text-md-left">
+        <!-- Mask & flexbox options-->
+        <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-            <h1 class="display-4 font-weight-bold">Find Local Dog Lovers In Your Area</h1>
+            <!-- Content -->
+            <div class="container">
 
-            <hr class="hr-light">
+                <!--Grid row-->
+                <div class="row wow fadeIn">
 
-            <p>
-              <strong>Responsible Breeding Leads to Happy Pups and Happy People</strong>
-            </p>
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4 white-text text-center text-md-left">
 
-            <p class="mb-4 d-none d-md-block">
-              <strong>For people looking to build their canine family. Meet people looking to connect to make doggy babies</strong>
-            </p>
+                        <h1 class="display-4 font-weight-bold">Find Local Dog Lovers In Your Area</h1>
 
-            <!-- <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">Sign Me Up!
+                        <hr class="hr-light">
+
+                        <p>
+                            <strong>Responsible Breeding Leads to Happy Pups and Happy People</strong>
+                        </p>
+
+                        <p class="mb-4 d-none d-md-block">
+                            <strong>For people looking to build their canine family. Meet people looking to connect to
+                                make doggy babies</strong>
+                        </p>
+
+                        <!-- <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">Sign Me Up!
             </a> -->
 
           </div>
@@ -161,23 +175,23 @@
                   </h3>
                   <hr>
 
-                  <div class="md-form">
+                  {{!-- <div class="md-form"> --}}
                     <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
-                    <label id="username" for="form3">Username</label>
-                  </div>
+                    <input id="username" type="text" id="form3" class="form-control">
+                    <label for="form3">Username</label>
+                  {{!-- </div> --}}
                 
 
-                  <div class="md-form">
+                  {{!-- <div class="md-form"> --}}
                     <i class="fas fa-pencil-alt prefix grey-text"></i>
                     <textarea type="text" id="form8" class="md-textarea"></textarea>
                     <label for="form8">Password</label>
-                  </div>
+                  {{!-- </div> --}}
 
                   <div class="text-center">
-                    <button class="btn btn-indigo" onclick="getID();">Sign In</button>
+                    <p class="paragraphButton" onclick="getID();">Sign In</p>
                    
-                    <button class="btn btn-indigo" onclick= "window.location.href='/signup'">Sign Up</button>
+                    <p class="paragraphButton" onclick= "window.location.href='/signup'">Sign Up</p>
                     </div>
                   </div>
 
@@ -185,10 +199,7 @@
               </div>
 
             </div>
-            <!--/.Card-->
-
-          </div>
-          <!--Grid column-->
+            <!-- Content -->
 
         </div>
         <!--Grid row-->
@@ -206,22 +217,14 @@
     <!-- Mask & flexbox options-->
 
 
-    <script>
-        function getID() {
-          $.get( "/api/name/" + $("#username").val()).then(data => {
-            window.location.href = "/home/" + data.id;
-        });
-      }
-    </script>
-
  
 
-   
+      
   <!-- SCRIPTS -->
   <!-- JQuery -->
   <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
+  {{!-- <script type="text/javascript" src="js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
@@ -230,7 +233,7 @@
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
-  </script>
+  </script> --}}
 </body>
 
 </html>
