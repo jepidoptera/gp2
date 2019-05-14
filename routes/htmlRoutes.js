@@ -10,7 +10,7 @@ module.exports = function(app) {
     });
 
     app.get("/home/:userID", function (req, res) {
-        doges.findOne({ where: { id: req.params.userID } }).then(doge => {
+        db.Doges.findOne({ where: { id: req.params.userID } }).then(doge => {
             // send back info on this doge
             res.render("dashboard", doge.dataValues);
         });
