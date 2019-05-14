@@ -181,12 +181,6 @@
                     </div>
                   </div>
 
-                  <script>
-                    function getID() {
-                      app.get( "/api/name/g" + $("#username").val()).then(data => {
-                        window.location.href = "/home/" + data.id;
-                    });
-                  </script>
                
               </div>
 
@@ -212,7 +206,14 @@
     <!-- Mask & flexbox options-->
 
 
-    
+    <script>
+        function getID() {
+          $.get( "/api/name/" + $("#username").val()).then(data => {
+            window.location.href = "/home/" + data.id;
+        });
+      }
+    </script>
+
  
 
    
