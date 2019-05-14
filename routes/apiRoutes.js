@@ -16,13 +16,15 @@ module.exports = function(app) {
         console.log("creating: " + JSON.stringify(req.body));
         // do some validation: make sure we're not reusing an email or username
         doges.findAll({ where: { name: req.body.name } }).then(data => {
-            if (data) {
+            if (data.length > 0) {
+                console.log(JSON.stringify(data));
                 res.status(409).send("username is already taken.");
                 return;
             } 
         });
         doges.findAll({ where: { email: req.body.email } }).then(data => {
-            if (data) {
+            if (data.length > 0) {
+                console.log(JSON.stringify(data));
                 res.status(409).send("email is already taken.");
                 return;
             }
