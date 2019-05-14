@@ -27,7 +27,8 @@ describe("GET /api/alldoges", function() {
             location: "minneapolis",
             description: "A fake dog",
             email: "somewhere@something.com",
-            password: "5f4dcc3b5aa765d61d8327deb882cf99"
+            password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            sex: "male"
         },
         {
             name: "Madam Pomeranian",
@@ -35,7 +36,8 @@ describe("GET /api/alldoges", function() {
             location: "minneapolis",
             description: "This one's real",
             email: "somewhere@something.com",
-            password: "5f4dcc3b5aa765d61d8327deb882cf99"
+            password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            sex: "female"
         }
         ]).then(function() {
         // Request the route that returns all examples
@@ -91,7 +93,8 @@ describe("POST /api/doges", function() {
             location: "minneapolis",
             description: "A fake dog",
             email: "somewhere@something.com",
-            password: "5f4dcc3b5aa765d61d8327deb882cf99"
+            password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            sex: "male"
           },
           {
             name: "Madame Pomeranian",
@@ -99,7 +102,8 @@ describe("POST /api/doges", function() {
             location: "minneapolis",
             description: "This one's real.  Just kidding.",
             email: "somewhere@something.com",
-            password: "5f4dcc3b5aa765d61d8327deb882cf99"
+            password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            sex: "female"
           },
           {
             name: "Artemis",
@@ -107,7 +111,8 @@ describe("POST /api/doges", function() {
             location: "minneapolis",
             description: "May actually be a cat.",
             email: "somewhere@something.com",
-            password: "5f4dcc3b5aa765d61d8327deb882cf99"
+            password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            sex: "male"
           }
         ];
 
