@@ -10,7 +10,7 @@ module.exports = function(app) {
         // res.sendFile(path.join(__dirname, "..", "public", "signIn", "form.html"));
     });
 
-    app.get(git , function (req, res) {
+    app.get("/home/:userID", function (req, res) {
         db.Doges.findOne({ where: { id: req.params.userID } }).then(doge => {
             // send back info on this doge
             res.render("dashboard", doge.dataValues);
