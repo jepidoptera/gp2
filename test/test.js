@@ -2,6 +2,7 @@ var chai = require("chai");
 var chaiHttp = require("chai-http");
 var server = require("../server");
 var db = require("../models");
+var calcDist = require("../public/js/geocode");
 var expect = chai.expect;
 
 // Setting up the chai http plugin
@@ -268,3 +269,12 @@ describe("POST /api/message", function() {
     });
 });
 
+describe("testing geocoder distance calculator", function () {
+    it("should be a number", function (done) {
+        calcDist("Minneapolis", "Saint Paul", function (total) {
+            console.log("total distance calculated: ", total);
+            expect(total).to.be.a("number");
+            done();
+        });
+    });
+});

@@ -8,3 +8,6 @@
 .paragraphButton {
     border: 1px solid black;
 }
+#errorMsg {
+    color: red;
+}

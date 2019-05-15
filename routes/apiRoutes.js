@@ -1,6 +1,7 @@
 // jshint esversion: 6
 var doges = require("../models").Doges;
 var messages = require("../models").Messages;
+var md5 = require("../public/js/md5");
 const Op = require("sequelize").Op;
 
 module.exports = function(app) {
@@ -36,30 +37,31 @@ module.exports = function(app) {
         });
     });
 
-    app.post("/api/login/:userID", function (req, res) {
-
-    });
-
-    app.get("/api/name/:dogename", function (req, res) {
-        // look up by username
-        console.log("getting info on user with name: " + req.params.dogename);
-        doges.findOne({ where: { name: req.params.dogename } }).then(doge => {
+    app.post("/api/login", function (req, res) {
+        var username = req.body.username;
+        var password = md5(req.body.password);
+        console.log("attempting login: ", username, password);
+        doges.findOne({ where: { name: username } }).then(doge => {
             if (doge) {
-                res.send(doge.dataValues);
-            }
-            else {
+                if (password == doge.dataValues.password) {
+                    res.status(409).send("wrong password");
+                }
+            } else {
                 res.status(404).send("couldn't find that user");
             }
         });  
     });
 
+    app.get("/api/name/:dogename", function (req, res) {
+        // look up by username
+        console.log("getting info on user with name: " + req.params.dogename);
+        findDoge({ name: req.params.dogename }, res);
+    });
+
     app.get("/api/ID/:userID", function (req, res) {
         // look up by ID
         console.log("getting info on user with ID: " + req.params.userID);
-        doges.findOne({ where: { id: req.params.userID } }).then(doge => {
-            // send back info on this doge
-            res.send(doge.dataValues);
-        });
+        findDoge({ id: req.params.userID }, res);
     });
 
     app.get("/api/messages/convo/:user1ID/:user2ID/:since?", function (req, res) {
@@ -120,6 +122,18 @@ module.exports = function(app) {
         });
     });
 };
+
+function findDoge(conditions, res) {
+    doges
+        .findOne({ where: conditions })
+        .then(doge => {
+        if (doge) {
+            res.send(doge.dataValues);
+        } else {
+            res.status(404).send("couldn't find that user");
+        }
+        });  
+}
 
 function randomHexNumber(length) {
     // get a random hexadecimal number of the specified length

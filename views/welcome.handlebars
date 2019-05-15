@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <script>
-        function getID() {
-            console.log("looking up: " + $("#username").val());
-            $.get("/api/name/" + $("#username").val()).then(data => {
-                window.location.href = "/home/" + data.id;
-            });
-        }
-    </script>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -175,21 +166,23 @@
                   </h3>
                   <hr>
 
-                  {{!-- <div class="md-form"> --}}
+                  <div class="md-form">
                     <i class="fas fa-user prefix grey-text"></i>
                     <input id="username" type="text" id="form3" class="form-control">
                     <label for="form3">Username</label>
-                  {{!-- </div> --}}
+                  </div>
                 
 
-                  {{!-- <div class="md-form"> --}}
+                  <div class="md-form">
                     <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea"></textarea>
+                    <input type="text" id="form8" class="form-control"></input>
                     <label for="form8">Password</label>
-                  {{!-- </div> --}}
+                  </div>
+                
+                    <div id="errorMsg"><br></div>
 
                   <div class="text-center">
-                    <p class="paragraphButton" onclick="getID();">Sign In</p>
+                    <p class="paragraphButton" onclick="login();">Sign In</p>
                    
                     <p class="paragraphButton" onclick= "window.location.href='/signup'">Sign Up</p>
                     </div>
@@ -237,3 +230,31 @@
 </body>
 
 </html>
+
+<script>
+    function login() {
+        console.log("looking up: " + $("#username").val());
+        $.ajax({
+            type: "POST",
+            url: "/api/login",
+            data:{
+                username: $("#username").val(),
+                password: $("#password").val()
+                },
+            success: (data) => {
+                // store the authToken, if we got one
+                if (data.authToken) localStorage.authToken = data.authToken;
+                console.log("logged in");
+                // go to profile page
+                $.get("/api/name/" + $("#username").val()).then(data => {
+                    window.location.href = "/home/" + data.id;
+                })},
+            error: (jqXHR, textStatus, error) => {
+                // display error message
+                console.log(JSON.stringify(error));
+                $("#errorMsg").empty().text(error);
+                $("#password").val("");
+            }
+        });
+    }
+</script>
