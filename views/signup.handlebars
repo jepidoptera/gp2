@@ -272,31 +272,7 @@
                     "breed", // (not null)
                     "description", // (not null)
                     "location", // (not null)
-                    "birthdate",
-                    "sex",
-                    "imgURL"
-                    // visible,
-                    // authtoken,
-                    // validated
-                ];
-                var doge = {};
-                // get all fields from the form
-                fields.forEach(field => {
-                    doge[field] = $("input[name='" + field + "']").val() || $("textarea[name='" + field + "']").val();
-                });
-                // post a request
-                $.ajax({
-                    type: "POST",
-                    url: "/api/newdoge",
-                    data: doge,
-                    success: (res) => {
-                        $("body").empty().text("Profile created successfully.  Logging you in...");
-                        setTimeout(() => {
-                            window.location.href = "/home/" + res.id;
-                        }, 3000)
-                    },
-                    error: (jqXHR, textStatus, error) => {
-                        // display error message
+                       // display error message
                         console.log(JSON.stringify(jqXHR.responseText));
                         $("#errorMsg").empty().text(jqXHR.responseText);
                     }
