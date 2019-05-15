@@ -36,10 +36,10 @@
     <div class="container-fluid" id= "main-container">
       <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md" id="sidebar">
           <!-- Sidebar -->
-          <div id="sidebar">
-            <img id="userImage" src="/images/Smile.jpg" alt="dog picture">
+          {{!-- <div id="sidebar"> --}}
+            <img id="userImage" src="https://www.barkbusters.com/themes/usa/media/breed-of-the-month/beagle/Beagle3.jpeg" alt="dog picture">
               <br>
               <br>
               <a class="tabButton list-group-item active waves-effect" 
@@ -56,6 +56,7 @@
                 <i class="	fas fa-dog mr-4"></i>Messages</a>
 
     <script>
+      
         function showWindow(selectedWindow) {
           $(".tabButton").removeClass("active");
           $("#get" + selectedWindow).addClass("active");
@@ -64,38 +65,100 @@
         };
     </script>
 
-          </div>
-        <!-- Sidebar -->
+          {{!-- </div> --}}
+        <!-- column -->
         </div>
-        <div class="col-md-8">
-          <div class="content-window" id="matches">
-            <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture">
-          </div>
 
-          <div class="content-window" id="profile">
-            <img id="matchedImage" src="/images/Smile.jpg" alt="dog picture">
+{{!-- second column --}}
+         <div class="col-md content-window" id="profile">      
+           <row>
+             <col class="profPics">
+              <h3>{{name}} </h3>
+              {{!-- <img id="firstPic" src="https://d3jjg4nf4bbybe.cloudfront.net/u/64047/a19fb2d6368a1a3a57d32838884733aac69f9570/medium/ralph-4.jpg"> --}}
+                
+              <img id="secondPic" src="https://www.pets4homes.co.uk/images/breeds/45/df040001380df4162b8cae53fa45389d.jpeg">
+             </col>
+           </row>
+            <li data-id="{{this.id}}" class="list-group-item">
+                <p>Name: {{name}}</p>
+                <p>Breed: {{breed}}</p>
+                <p>Location: {{location}}</p>
+                <p>Description: {{description}}</p>
+
+                <button class="editInfo"  id="changeProfileInfo" onclick="showWindow('signup');" >"Edit Personal Info"</button>
+          </li>
+               
+        
+      
+
+          <div class= "col-md content-window" id="matches"> 
+         
+                {{!-- <img id="matchedImage" src="https://www.barkbusters.com/themes/usa/media/breed-of-the-month/beagle/Beagle3.jpeg"> --}}
+                <br>
+                <br>
+                {{!-- <li data-id="{{this.id}}" class="list-group-item">
+                        <p>name: {{name}}</p>
+                        <p>Breed: {{breed}}</p>
+                        <p>Location: {{location}}</p>
+                        <p>Description: {{description}}</p>
+                </li>
+          --}}
           </div>
+          
 
           <div class="content-window" id="messages">
-            <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture">
-              <p>dfdfasdfsafd</p>
-          </div>
-
+            {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
+              <div class="container">
+    <div class="row">
+        <div class="col-4">
+            <h3>YOU</h3>
+            <br>
+            <h3>{{name}} </h3>
+            bio: {{description}} <br>
+            location: {{location}} <br>
+            email: {{email}} <br>
+        </div>
+        <div class="col-8">
+            <h3>OTHER DOGES:</h3>
+            <br>
+            <ul>
+                {{#each otherDogs}}
+                <li data-id="{{this.id}}" class="list-group-item">
+                    <p>name: {{name}}</p>
+                    <p>breed: {{breed}}</p>
+                    <p>location: {{location}}</p>
+                    <p>description: {{description}}</p>
+                    {{!-- <a href="doge/{{this.id}}">{{this.text}}</a>
+            <button class="btn btn-danger float-right delete">ｘ</button> --}}
+                    <button onclick="window.location.href='/convo/{{../id}}/{{id}}'">
+                        send message
+                    </button>
+                </li>
+                {{/each}}
+            </ul>
+            <br>
 
         </div>
-      </div>
-    </body>
-
-
-
-
-
-
+    </div>
+</div>
+          </div>
+            {{!-- <script>
+              
+            </script> --}}
+            </div>
+        </div>
+        
     
-  <footer id="test">
-  </footer>
 
 
+{{!--  app.get("/api/name/:dogename", function (req, res) {
+        // look up by username
+        console.log("getting info on user with name: " + req.params.dogename);
+        findDoge({ name: req.params.dogename }, res); --}}
+
+
+
+</body>
 
 
 
