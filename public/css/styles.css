@@ -11,3 +11,43 @@
 #errorMsg {
     color: red;
 }
+
+#main-container{
+  background-color: black;
+  width: 100%;
+  height: auto;
+}
+
+#navbar{
+  color:black;
+}
+#test{
+  background-color: white;
+  height:auto;
+}
+#sidebar{
+  /* background-color: red; */
+  height:auto;
+  border:red solid;
+}
+#userImage{
+  width: 70%;
+  height:auto;
+}
+
+#matchedImage{
+  width: 30%;
+  height:auto;
+  border:solid;
+}
+
+.content-window{
+  /* width: 75%; */
+  /* height:auto; */
+  border: blue solid;
+  /* float:right; */
+}
+
+.tabButton {
+  cursor: pointer;
+}
