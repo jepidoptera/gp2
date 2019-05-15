@@ -8,127 +8,104 @@
   <title>Dog App</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-  {{!-- <!-- Bootstrap core CSS -->
-  <link href="mainProfile/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="mainProfile/css/mdb.min.css" rel="stylesheet">
-  <!-- Your custom styles (optional) -->
-  <link href="mainProfile/css/style.min.css" rel="stylesheet">
- --}}
+  <link rel="stylesheet" type="text/css" href="/public/css/styles.css">
 </head>
 
-<body class="black">
+{{!-- <body class="black"> --}}
 
   <!--Main Navigation-->
-  <header>
+  <div class="header">
 
     <!-- Navbar -->
-   <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
-    <div class="container"> 
 
-      <!-- Brand -->
-      <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>The Barker</strong>
-      </a> 
+    {{!-- --This will move the dog icon all the way to the left-- --}}
+{{!-- <nav class="navbar navbar-expand-lg"></nav> --}}
 
+{{!-- This moves it all the way to the right --}}
+   <nav class="navbar" id="navbar">
+        <h1><strong>The Barker</h1></strong>
         <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons"> 
-           <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-              target="_blank">
-              <i class="fab fa-github mr-2"></i>GitHub
-            </a>
-          </li>
-        </ul>
-
-      </div>
-      </nav>
-    </div>
+        <i class="fas fa-dog mr-4" id="icon"></i>
+   </nav>
+   
   <!-- Navbar -->
-
-    <!-- Sidebar -->
-    <div class="sidebar-fixed position-fixed">
-
-      <!-- This is where the profile picture goes> -->
-        <img src="https://scontent-msp1-1.xx.fbcdn.net/v/t1.0-9/50063306_10161281891285301_1494680375996186624_n.jpg?_nc_cat=108&_nc_ht=scontent-msp1-1.xx&oh=2e894311421eae05b45b889133b24668&oe=5D628A4D" class="img-fluid" alt="">
-      
-
-      <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item active waves-effect">
-          <i class="	fas fa-dog mr-4"></i>Matches
-        </a>
-        <a class="nav-link list-group-item list-group-item-action waves-effect" href="http://facebook.com" target= "facebook">
-          <i class="	fas fa-dog mr-4"></i>Profile</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="	fas fa-dog mr-4"></i>Messages</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="	fas fa-dog mr-4"></i>Matches</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="	fas fa-dog mr-4"></i>Settings</a>
-      </div>
-
-    </div>
-    <!-- Sidebar -->
-
-  </header>
-  
+</div>
+    
  <!-- <body> -->
-  <main class="mt-5 pt-5">
-    <div class="container">
+  <body>
+    <div class="container-fluid" id= "main-container">
+      <div class="row">
 
-      <!--Section: Jumbotron-->
-      <section class="card blue-gradient wow fadeIn">
-            <!--Card content-->
-            <div class= "col-8 card-body"id="messages">
-              
-            </div>
+        <div class="col-md-3">
+          <!-- Sidebar -->
+          <div id="sidebar">
+            <img id="userImage" src="/images/Smile.jpg" alt="dog picture">
+              <br>
+              <br>
+              <a class="tabButton list-group-item active waves-effect" 
+                id="getmatches" 
+                onclick="showWindow('matches');">
+                <i class="	fas fa-dog mr-4"></i>Matches</a>
+              <a class="tabButton list-group-item waves-effect" 
+                id="getprofile" 
+                onclick="showWindow('profile');">
+                <i class="	fas fa-dog mr-4"></i>Profile</a>
+              <a class="tabButton list-group-item waves-effect" 
+                id="getmessages" 
+                onclick="showWindow('messages');">
+                <i class="	fas fa-dog mr-4"></i>Messages</a>
 
-          <!--Grid column-->
+    <script>
+        function showWindow(selectedWindow) {
+          $(".tabButton").removeClass("active");
+          $("#get" + selectedWindow).addClass("active");
+          $(".content-window").hide();
+          $('#'+ selectedWindow).show();
+        };
+    </script>
 
-<!--Card content-->
-            <div class= "col-8 card-body"id="signUp">
-               
-            </div>
-
-          <!--Grid column-->
-
-
-
-
-
-
-
-
-
-
-
-        </section>
-        <!-- Section: Jumbotron -->
+          </div>
+        <!-- Sidebar -->
         </div>
-            <!-- grid container -->
-       
-        </main>
-        <!--container-->
+        <div class="col-md-8">
+          <div class="content-window" id="matches">
+            <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture">
+          </div>
+
+          <div class="content-window" id="profile">
+            <img id="matchedImage" src="/images/Smile.jpg" alt="dog picture">
+          </div>
+
+          <div class="content-window" id="messages">
+            <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture">
+              <p>dfdfasdfsafd</p>
+          </div>
+
+
+        </div>
+      </div>
+    </body>
 
 
 
-  {{!-- <!-- SCRIPTS -->
-  <!-- JQuery -->
-  <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- Initializations -->
-  <script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
 
-  </script> --}}
 
-  
-</body>
+
+    
+  <footer id="test">
+  </footer>
+
+
+
+
+
+
+
+  {{!-- <script>
+$function(){
+  $("profile").hide();
+});
+  </script>  --}}
+
 
 </html>
