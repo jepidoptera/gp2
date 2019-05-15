@@ -175,14 +175,14 @@
 
                   <div class="md-form">
                     <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <input type="text" id="form8" class="form-control"></input>
+                    <input type="password" id="form8" class="form-control"></input>
                     <label for="form8">Password</label>
                   </div>
                 
                     <div id="errorMsg"><br></div>
 
                   <div class="text-center">
-                    <p class="paragraphButton" onclick="login();">Sign In</p>
+                    <p type="submit" class="paragraphButton" onclick="login();">Sign In</p>
                    
                     <p class="paragraphButton" onclick= "window.location.href='/signup'">Sign Up</p>
                     </div>
@@ -217,7 +217,7 @@
   <!-- JQuery -->
   <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
   <!-- Bootstrap tooltips -->
-  {{!-- <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
@@ -226,7 +226,7 @@
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
-  </script> --}}
+  </script>
 </body>
 
 </html>
@@ -241,18 +241,19 @@
                 username: $("#username").val(),
                 password: $("#password").val()
                 },
-            success: (data) => {
+            success: ((data) => {
+                console.log(data);
                 // store the authToken, if we got one
                 if (data.authToken) localStorage.authToken = data.authToken;
                 console.log("logged in");
                 // go to profile page
                 $.get("/api/name/" + $("#username").val()).then(data => {
                     window.location.href = "/home/" + data.id;
-                })},
+                })}),
             error: (jqXHR, textStatus, error) => {
                 // display error message
-                console.log(JSON.stringify(error));
-                $("#errorMsg").empty().text(error);
+                console.log(JSON.stringify(jqXHR));
+                $("#errorMsg").empty().text(jqXHR.responseText);
                 $("#password").val("");
             }
         });

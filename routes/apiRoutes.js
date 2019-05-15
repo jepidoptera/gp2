@@ -35,7 +35,10 @@ module.exports = function(app) {
                 return;
             }
         });
-        // no conflicts: create new doge
+        // no conflicts: 
+        // salt and hash password
+        req.body.password = md5(req.body.username.toLowerCase() + req.body.password);
+        // create new doge
         doges.create(req.body).then(data => {
             // reload home page
             res.send(data.dataValues);
@@ -47,12 +50,20 @@ module.exports = function(app) {
 
     app.post("/api/login", function (req, res) {
         var username = req.body.username;
-        var password = md5(req.body.password);
+        var password = md5(
+          req.body.username.toLowerCase() + req.body.password
+        );
         console.log("attempting login: ", username, password);
         doges.findOne({ where: { name: username } }).then(doge => {
             if (doge) {
-                if (password == doge.dataValues.password) {
+                if (password != doge.dataValues.password) {
+                    console.log("password = ", password);
+                    console.log("should be: ", doge.dataValues.password);
                     res.status(409).send("wrong password");
+                }
+                else {
+                    // send back doge object (with authtoken)
+                    res.send(doge.dataValues);
                 }
             } else {
                 res.status(404).send("couldn't find that user");

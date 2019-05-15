@@ -9,9 +9,15 @@ window.addEventListener('load', function () {
       .forEach(element => {
         // save info as you type
         element.addEventListener("change", function() {
-          localStorage.setItem(element.name, element.value);
+            localStorage.setItem(element.name, element.value);
         });
         // retrieve previous entry
         element.value = localStorage.getItem(element.name);
-      });
+        // simulate change event
+        if (element.value) {
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", true, true);
+            element.dispatchEvent(evt);
+        }
+    });
 });
