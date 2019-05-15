@@ -2,6 +2,7 @@ var chai = require("chai");
 var chaiHttp = require("chai-http");
 var server = require("../server");
 var db = require("../models");
+var calcDist = require("../public/js/geocode");
 var expect = chai.expect;
 
 // Setting up the chai http plugin
@@ -21,30 +22,31 @@ describe("GET /api/alldoges", function() {
         // Add some examples to the db to test with
         
         db.Doges.bulkCreate([
-        {
+          {
             name: "Mr. Fluffhead",
             breed: "poodle",
             location: "minneapolis",
             description: "A fake dog",
             email: "somewhere@something.com",
             password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            confirmPassword: "5f4dcc3b5aa765d61d8327deb882cf99",
             sex: "male"
-        },
-        {
+          },
+          {
             name: "Madam Pomeranian",
             breed: "pomeranian",
             location: "minneapolis",
             description: "This one's real",
             email: "somewhere@something.com",
             password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            confirmPassword: "5f4dcc3b5aa765d61d8327deb882cf99",
             sex: "female"
-        }
+          }
         ]).then(function() {
-        // Request the route that returns all examples
-        request.get("/api/alldoges").end(function(err, res) {
+          // Request the route that returns all examples
+          request.get("/api/alldoges").end(function(err, res) {
             var responseStatus = res.status;
             var responseBody = res.body;
-
             // Run assertions on the response
 
             expect(err).to.be.null;
@@ -52,26 +54,27 @@ describe("GET /api/alldoges", function() {
             expect(responseStatus).to.equal(200);
 
             expect(responseBody)
-            .to.be.an("array")
-            .that.has.lengthOf(2);
+              .to.be.an("array")
+              .that.has.lengthOf(2);
 
             expect(responseBody[0])
-            .to.be.an("object")
-            .that.includes({
+
+              .to.be.an("object")
+              .that.includes({
                 name: "Mr. Fluffhead",
                 description: "A fake dog"
-            });
+              });
 
             expect(responseBody[1])
-            .to.be.an("object")
-            .that.includes({
+              .to.be.an("object")
+              .that.includes({
                 name: "Madam Pomeranian",
                 description: "This one's real"
-            });
+              });
 
             // The `done` function is used to end any asynchronous tests
             done();
-        });
+          });
         });
     });
 });
@@ -94,6 +97,7 @@ describe("POST /api/doges", function() {
             description: "A fake dog",
             email: "somewhere@something.com",
             password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            confirmPassword: "5f4dcc3b5aa765d61d8327deb882cf99",
             sex: "male"
           },
           {
@@ -103,6 +107,7 @@ describe("POST /api/doges", function() {
             description: "This one's real.  Just kidding.",
             email: "somewhere@something.com",
             password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            confirmPassword: "5f4dcc3b5aa765d61d8327deb882cf99",
             sex: "female"
           },
           {
@@ -112,6 +117,7 @@ describe("POST /api/doges", function() {
             description: "May actually be a cat.",
             email: "somewhere@something.com",
             password: "5f4dcc3b5aa765d61d8327deb882cf99",
+            confirmPassword: "5f4dcc3b5aa765d61d8327deb882cf99",
             sex: "male"
           }
         ];
@@ -132,8 +138,7 @@ describe("POST /api/doges", function() {
                 expect(err).to.be.null;
                 expect(responseStatus).to.equal(200);
 
-                expect(responseBody).to.be.an("object")
-                    .that.includes(post);
+                expect(responseBody).to.be.an("object");
 
             });
         });
@@ -268,3 +273,12 @@ describe("POST /api/message", function() {
     });
 });
 
+// describe("testing geocoder distance calculator", function () {
+//     it("should be a number", function (done) {
+//         calcDist("Minneapolis", "Saint Paul", function (total) {
+//             console.log("total distance calculated: ", total);
+//             expect(total).to.be.a("number");
+//             done();
+//         });
+//     });
+// });

@@ -8,6 +8,10 @@
 .paragraphButton {
     border: 1px solid black;
 }
+#errorMsg {
+    color: red;
+}
+
 #main-container{
   background-color: black;
   width: 100%;
