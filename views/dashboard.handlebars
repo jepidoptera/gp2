@@ -2,13 +2,8 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Dog App</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-  <link rel="stylesheet" type="text/css" href="/public/css/styles.css">
+    <title>dogFire</title>
+    <link rel="stylesheet" href="/css/dashboard.css" media="screen" title="no title" charset="utf-8">
 </head>
 
 {{!-- <body class="black"> --}}
@@ -36,120 +31,118 @@
     <div class="container-fluid" id= "main-container">
       <div class="row">
 
-        <div class="col-md" id="sidebar">
-          <!-- Sidebar -->
-          {{!-- <div id="sidebar"> --}}
-            <img id="userImage" src="https://www.barkbusters.com/themes/usa/media/breed-of-the-month/beagle/Beagle3.jpeg" alt="dog picture">
-              <br>
-              <br>
-              <a class="tabButton list-group-item active waves-effect" 
+        <div class="col-md-4" id="sidebar">
+            <div style="text-align: center">
+                <h3>{{name}} </h3>
+                <br>
+                <div style="width: 100%; height: 300px;">
+                    <img id="profilePic" src="{{imgURL}}" style="max-width: 100%; max-height: 100%; display: inline-block" alt="dog picture">
+                </div>
+            </div>
+            <br>
+            {{!-- sidebar tabs --}}
+            <a class="tabButton list-group-item active waves-effect" 
                 id="getmatches" 
                 onclick="showWindow('matches');">
                 <i class="	fas fa-dog mr-4"></i>Matches</a>
-              <a class="tabButton list-group-item waves-effect" 
+            <a class="tabButton list-group-item waves-effect" 
                 id="getprofile" 
                 onclick="showWindow('profile');">
                 <i class="	fas fa-dog mr-4"></i>Profile</a>
-              <a class="tabButton list-group-item waves-effect" 
+            <a class="tabButton list-group-item waves-effect" 
                 id="getmessages" 
                 onclick="showWindow('messages');">
                 <i class="	fas fa-dog mr-4"></i>Messages</a>
-
-    <script>
-      
-        function showWindow(selectedWindow) {
-          $(".tabButton").removeClass("active");
-          $("#get" + selectedWindow).addClass("active");
-          $(".content-window").hide();
-          $('#'+ selectedWindow).show();
-        };
-    </script>
-
-          {{!-- </div> --}}
-        <!-- column -->
         </div>
 
-{{!-- second column --}}
-         <div class="col-md content-window" id="profile">      
-           <row>
-             <col class="profPics">
-              <h3>{{name}} </h3>
-              {{!-- <img id="firstPic" src="https://d3jjg4nf4bbybe.cloudfront.net/u/64047/a19fb2d6368a1a3a57d32838884733aac69f9570/medium/ralph-4.jpg"> --}}
-                
-              <img id="secondPic" src="https://www.pets4homes.co.uk/images/breeds/45/df040001380df4162b8cae53fa45389d.jpeg">
-             </col>
-           </row>
-            <li data-id="{{this.id}}" class="list-group-item">
+        {{!-- content windows --}}
+
+        <div class="col-md-8">
+
+            <div class= "content-window" id="profile" style="display: none">      
+                {{!-- <img id="firstPic" src="https://d3jjg4nf4bbybe.cloudfront.net/u/64047/a19fb2d6368a1a3a57d32838884733aac69f9570/medium/ralph-4.jpg"> --}}
+                    
+                <div style="width: 100%; height: 400px; text-align: center">
+                    <img id="secondPic" src="{{imgURL}}" style="max-width: 100%; max-height: 100%; display: inline-block"
+                        alt="dog picture">
+                </div>
                 <p>Name: {{name}}</p>
                 <p>Breed: {{breed}}</p>
+                <p>Sex: {{sex}}</p>
                 <p>Location: {{location}}</p>
                 <p>Description: {{description}}</p>
 
                 <button class="editInfo"  id="changeProfileInfo" onclick="showWindow('signup');" >"Edit Personal Info"</button>
-          </li>
-               
+            </div>        
         
       
-
-          <div class= "col-md content-window" id="matches"> 
-         
-                {{!-- <img id="matchedImage" src="https://www.barkbusters.com/themes/usa/media/breed-of-the-month/beagle/Beagle3.jpeg"> --}}
-                <br>
-                <br>
-                {{!-- <li data-id="{{this.id}}" class="list-group-item">
-                        <p>name: {{name}}</p>
-                        <p>Breed: {{breed}}</p>
-                        <p>Location: {{location}}</p>
-                        <p>Description: {{description}}</p>
-                </li>
-          --}}
-          </div>
+            {{!-- matches window!! --}}
+            <div class= "content-window" id="matches"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="matchPicContainer">
+                            {{!-- <img id="matchPic" src="" alt="dog picture"> --}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <br>
+                        <h3 id="matchName">dog</h3>
+                        <hr>
+                        <p id="matchBreed">dog</p>
+                        <p id="matchSex">dog</p>
+                        <p id="matchLocation">here</p>
+                        <p id="matchAge">1</p>
+                        <p id="matchDescription">dog</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 rowcontainer">
+                        <br>
+                        <button class='rowbutton' style="left: 25%" onclick="showWindow('sendMessage'); showMessages();">send message</button>
+                        <button class='rowbutton' style="left: 75%" onclick="nextMatch()">next</button>
+                        <br>
+                        <span style="color:black">' let's have some space here please for fuck's sake '</span>
+                    </div>
+                </div>
+            </div>
           
 
-          <div class="content-window" id="messages">
-            {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
-              <div class="container">
-    <div class="row">
-        <div class="col-4">
-            <h3>YOU</h3>
-            <br>
-            <h3>{{name}} </h3>
-            bio: {{description}} <br>
-            location: {{location}} <br>
-            email: {{email}} <br>
-        </div>
-        <div class="col-8">
-            <h3>OTHER DOGES:</h3>
-            <br>
-            <ul>
-                {{#each otherDogs}}
-                <li data-id="{{this.id}}" class="list-group-item">
-                    <p>name: {{name}}</p>
-                    <p>breed: {{breed}}</p>
-                    <p>location: {{location}}</p>
-                    <p>description: {{description}}</p>
-                    {{!-- <a href="doge/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button> --}}
-                    <button onclick="window.location.href='/convo/{{../id}}/{{id}}'">
-                        send message
-                    </button>
-                </li>
-                {{/each}}
-            </ul>
-            <br>
+            <div class="content-window" id="messages" style="display: none">
+                {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
+                <h3>OTHER DOGES:</h3>
+                <br>
+                <ul>
+                    {{#each otherDogs}}
+                    <li data-id="{{this.id}}" class="list-group-item">
+                        <p>name: {{name}}</p>
+                        <p>breed: {{breed}}</p>
+                        <p>location: {{location}}</p>
+                        <p>description: {{description}}</p>
+                        {{!-- <a href="doge/{{this.id}}">{{this.text}}</a>
+                <button class="btn btn-danger float-right delete">ｘ</button> --}}
+                        <button onclick="window.location.href='/convo/{{../id}}/{{id}}'">
+                            send message
+                        </button>
+                    </li>
+                    {{/each}}
+                </ul>
+                <br>
 
+            </div>
+
+            <div class="content-window" id="sendMessage" style="display: none">
+                {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
+                <div id="convo">
+
+                </div>
+                message to: <span id="msgRecipient"></span>
+                <input type="text" id="msgText">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 </div>
-          </div>
-            {{!-- <script>
-              
-            </script> --}}
-            </div>
-        </div>
         
-    
-
 
 {{!--  app.get("/api/name/:dogename", function (req, res) {
         // look up by username
@@ -160,8 +153,141 @@
 
 </body>
 
+<script>
+    var matches = [];
+    var currentMatch = 0;
+    $("document").ready(() => {
+        // have these ready
+        getMatches();
+    })
 
+    function showWindow(selectedWindow) {
+        $(".tabButton").removeClass("active");
+        $("#get" + selectedWindow).addClass("active");
+        $(".content-window").hide();
+        $('#'+ selectedWindow).show();
+    };
 
+    function getMatches() {
+        $.ajax({
+            url: "/api/allDoges",
+            type: "GET",
+            success: (doges) => {
+                matches = doges;
+                console.log("found " + doges.length + " doges.");
+                // show the first suitable one
+                nextMatch();
+                // look for messages nex
+                getMessages();
+            },
+            error: (jqXHR, textStatus, error) => {
+                // display error message
+                console.log(JSON.stringify(jqXHR));
+                $("#matches").empty().css({color: "red"}).text(jqXHR.responseText);
+            }
+        })
+    }
+
+    function nextMatch () {
+        // get the next available match
+        var failed = false;
+        while (failed === false) {
+            currentMatch ++;
+            if (currentMatch >= matches.length) currentMatch = 0;
+            // see if this is a suitable match
+            if (matches[currentMatch].name != "{{name}}") {
+                // show it and get out
+                showMatch(currentMatch);
+                return;
+            }
+        }
+    }
+
+    function showMatch (number) {
+        $("#matchPicContainer").css({'background-image': "url('" + matches[number].imgURL + "')"});
+        $("#matchName").text(matches[number].name)
+        $("#matchBreed").text("breed: " + matches[number].breed)
+        $("#matchSex").text("sex: " + matches[number].sex)
+        $("#matchLocation").text("location: " + matches[number].location)
+        $("#matchAge").text("age: " + matches[number].age)
+        $("#matchDescription").text(matches[number].description)
+    }
+
+    function getMessages () {
+        // retrieve all conversations with all other users
+        matches.forEach(match => {
+            $.ajax({
+                url: "/api/messages/convo/{{id}}/" + match.id,
+                type: "GET",
+                success: (messages) => {
+                    // save them for this match
+                    match.messages = messages;
+                    console.log("messages between {{name}} and " + match.name + ": " + messages.length);
+                },
+                error: (jqXHR, textStatus, error) => {
+                    // display error message
+                    console.log(JSON.stringify(jqXHR));
+                    $("#messages").empty().css({color: "red"}).text(jqXHR.responseText);
+                }
+            })
+            // "/api/messages/convo/:user1ID/:user2ID/:since?"
+        })
+    }
+
+    function showMessages () {
+        console.log("showing messages with: " + matches[currentMatch].name)
+        $("#convo").empty();
+        matches[currentMatch].messages.forEach(message => {
+            $("#convo").append($("<p>").text(getDogeByID(message.sender).name + ": " + message.text));
+        })
+        $("#msgRecipient").text(matches[currentMatch].name);
+        matches.forEach(match => {
+            // console.log(match.name);
+        });
+    }
+
+    function getDogeByID (id) {
+        for (i=0; i<matches.length; i++) {
+            var match = matches[i];
+            console.log("checking id: " + match.id)
+            if (match.id == id) {
+                console.log(match.name)
+                return match;
+            }
+        }
+    }
+
+    function sendMessage () {
+        $.post("/api/message", {
+            sender: {{id}},
+            recipient: matches[currentMatch].id,
+            text: $("#msgText").val()
+        }).then (res => {
+            console.log(JSON.stringify(res));
+            $("#msgText").val("");
+        })
+    }
+
+    function checkMessages () {
+        matches.forEach(match => {
+            $.ajax({
+                url: "/api/messages/convo/{{id}}/" + match.id + "/" + match.messages.slice(-1),
+                type: "GET",
+                success: (messages) => {
+                    // save them for this match
+                    match.messages = messages;
+                    console.log("messages between {{name}} and " + match.name + ": " + messages.length);
+                },
+                error: (jqXHR, textStatus, error) => {
+                    // display error message
+                    console.log(JSON.stringify(jqXHR));
+                    $("#messages").empty().css({ color: "red" }).text(jqXHR.responseText);
+                }
+            })
+            // "/api/messages/convo/:user1ID/:user2ID/:since?"
+        })
+    }
+</script>
 
 
   {{!-- <script>

@@ -1,0 +1,37 @@
+#matchPicContainer {
+    width: 100%; 
+    height: 400px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* #matchPic {
+    height: 100%; 
+    display: inline-block
+} */
+
+.content-window{
+  border: blue solid;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.rowbutton {
+    position: absolute;
+    display: block;
+    font-size: 16pt;
+    border-radius: 3px;
+}
+
+.rowcontainer {
+    text-align: center;
+}
+
+#convo {
+    overflow: scroll;
+    height: 80%;
+    width: 100%;
+    border: solid blue
+}

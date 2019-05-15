@@ -21,38 +21,51 @@ module.exports = function(app) {
             return;
         }
         // make sure we're not reusing an email or username
-        doges.findAll({ where: { name: req.body.name } }).then(data => {
-            if (data.length > 0) {
-                console.log(JSON.stringify(data));
-                res.status(409).send("username is already taken.");
-                return;
+        doges.findOne({ where: { name: req.body.name } }).then(conflict => {
+            if (conflict) {
+              console.log("Found dog with conflicting username: ");
+              console.log(JSON.stringify(conflict));
+              res.status(409).send("username is already taken.");
+              return;
             } 
         });
-        doges.findAll({ where: { email: req.body.email } }).then(data => {
-            if (data.length > 0) {
-                console.log(JSON.stringify(data));
-                res.status(409).send("email is already taken.");
-                return;
+        doges.findOne({ where: { email: req.body.email } }).then(conflict => {
+            if (conflict) {
+              console.log("found dog with conflicting email...");
+              console.log(JSON.stringify(conflict));
+              res.status(409).send("email is already taken.");
+              return;
             }
         });
-        // no conflicts: create new doge
+        // no conflicts: 
+        // salt and hash password
+        req.body.password = md5(req.body.name.toLowerCase() + req.body.password);
+        // create new doge
         doges.create(req.body).then(data => {
             // reload home page
             res.send(data.dataValues);
         }).catch(err => {
-            console.log(err.errors[0].message);
+            console.log("ERROR: " + err.errors[0].message);
             res.status(409).send(err.errors[0].message);
         });
     });
 
     app.post("/api/login", function (req, res) {
         var username = req.body.username;
-        var password = md5(req.body.password);
+        var password = req.body.password;
         console.log("attempting login: ", username, password);
+        password = md5(username.toLowerCase() + password);
         doges.findOne({ where: { name: username } }).then(doge => {
             if (doge) {
-                if (password == doge.dataValues.password) {
+                if (password != doge.dataValues.password) {
+                    console.log(JSON.stringify(doge));
+                    console.log("salted password hash = ", password);
+                    console.log("should be: ", doge.dataValues.password);
                     res.status(409).send("wrong password");
+                }
+                else {
+                    // send back doge object (with authtoken)
+                    res.send(doge.dataValues);
                 }
             } else {
                 res.status(404).send("couldn't find that user");

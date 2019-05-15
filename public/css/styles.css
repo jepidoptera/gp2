@@ -35,19 +35,6 @@
   height:auto;
 }
 
-#matchedImage{
-  width: 30%;
-  height:auto;
-  border:solid;
-}
-
-.content-window{
-  /* width: 75%; */
-  /* height:auto; */
-  border: blue solid;
-  /* float:right; */
-}
-
 .tabButton {
   cursor: pointer;
 }

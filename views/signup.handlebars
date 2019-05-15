@@ -14,6 +14,8 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
+    <!-- script to save the values in your input fields, so they don't go away if you refresh -->
+    <script type="text/javascript" src="/js/saveinput.js"></script>
 
 </head>
 
@@ -198,6 +200,7 @@
                                             <label for="imgURL">image url</label>
                                             <input type="text" class="form-control" name="imgURL" 
                                                 placeholder="https://yt3.ggpht.com/a-/AAuE7mADdvvvDy2jJr4ajyHsv0Q26gTURdLpWQbJgg=s900-mo-c-c0xffffffff-rj-k-no"
+                                                value="https://yt3.ggpht.com/a-/AAuE7mADdvvvDy2jJr4ajyHsv0Q26gTURdLpWQbJgg=s900-mo-c-c0xffffffff-rj-k-no"
                                                 onchange="previewImg()">
                                         </div>
                                     
@@ -272,7 +275,31 @@
                     "breed", // (not null)
                     "description", // (not null)
                     "location", // (not null)
-                       // display error message
+                    "birthdate",
+                    "sex",
+                    "imgURL"
+                    // visible,
+                    // authtoken,
+                    // validated
+                ];
+                var doge = {};
+                // get all fields from the form
+                fields.forEach(field => {
+                    doge[field] = $("input[name='" + field + "']").val() || $("textarea[name='" + field + "']").val();
+                });
+                // post a request
+                $.ajax({
+                    type: "POST",
+                    url: "/api/newdoge",
+                    data: doge,
+                    success: (res) => {
+                        $("body").empty().text("Profile created successfully.  Logging you in...");
+                        setTimeout(() => {
+                            window.location.href = "/home/" + res.id;
+                        }, 3000)
+                    },
+                    error: (jqXHR, textStatus, error) => {
+                        // display error message
                         console.log(JSON.stringify(jqXHR.responseText));
                         $("#errorMsg").empty().text(jqXHR.responseText);
                     }
