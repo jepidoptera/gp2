@@ -24,7 +24,7 @@ module.exports = function(app) {
     });
 
     app.get("/signup", function (req, res) {
-        res.render("register.handlebars");
+        res.render("signup.handlebars");
     });
 
     app.get("/data", function (req, res) {

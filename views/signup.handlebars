@@ -20,7 +20,6 @@
 <body class="black">
 
     <!--Main Navigation-->
-    <header>
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -41,53 +40,24 @@
                 <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                    <!-- Left -->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://enterinthelinkhere" target="_blank">About The Barker</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://enterinthelinkhere" target="_blank">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://enterinthelinkhere" target="_blank">Browse Your
-                                Matches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://enterinthelinkhere" target="_blank">Visit the Blog</a>
-                        </li>
-                    </ul>
-
-                    <!-- Right -->
-                    <ul class="navbar-nav nav-flex-icons">
-                        <li class="nav-item">
-                            <a href="enterlinkhere" class="nav-link" target="_blank">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item">
-            <a href="https://enterlinkhere" class="nav-link" target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li> -->
-                        <li class="nav-item">
-                            <a href="https://enterlinkhere" class="nav-link border border-light rounded"
-                                target="_blank">
-                                <i class="fab fa-github mr-2"></i>GitHub
-                            </a>
-                        </li>
-                    </ul>
 
                 </div>
 
             </div>
         </nav>
         <!-- Navbar -->
+        {{!-- name (not null)
+        email (not null)
+        password (not null)
+        breed (not null)
+        description (not null)
+        location (not null)
+        birthdate
+        sex
+        imgURL
+        visible
+        authtoken
+        validated --}}
 
         <!--Main layout-->
         <main class="mt-5 pt-4">
@@ -100,7 +70,7 @@
                 <div class="row">
 
                     <!--Grid column-->
-                    <div class="col-md-8 mb-4">
+                    <div class="col-md-9 mb-4">
 
                         <!--Card-->
                         <div class="card">
@@ -112,76 +82,150 @@
                                 <div class="row">
 
                                     <!--Grid column-->
-                                    <div class="col-md-6 mb-2">
+                                    <div class="col-md-8 mb-2">
 
-                                        <!--firstName-->
+                                        <!--name-->
                                         <div class="md-form ">
-                                            <input type="text" id="firstName" class="form-control">
-                                            <label for="firstName" class="">Doggy name</label>
+                                            <input type="text" name="name" class="form-control" required>
+                                            <label for="name" class="">Doggy Name</label>
                                         </div>
 
                                     </div>
-                                    <!--Grid column-->
+                                    <div class="col-md-4 mb-2">
 
-                                    <!--Grid column-->
-                                    <div class="col-md-6 mb-2">
-
-                                        <!--lastName-->
+                                        <!--age-->
                                         <div class="md-form">
-                                            <input type="text" id="lastName" class="form-control">
-                                            <label for="lastName" class="">Doggy Age</label>
+                                            <input type="number" name="age" class="form-control" required>
+                                            <label for="age" class="">Doggy Age</label>
                                         </div>
 
                                     </div>
-                                    <!--Grid column-->
 
-                                </div>
-                                <!--Grid row-->
-
-                                <!--Grid row-->
-                                <div class="row">
-
-                                    <!--Grid column-->
                                     <div class="col-lg-4 col-md-12 mb-4">
+                                        <!--breed-->
                                         <div class="md-form">
-                                            <input type="text" id="lastName" class="form-control">
-                                            <label for="lastName" class="">Breed</label>
+                                            <label for="breed" class="">Doggy Breed</label>
+                                            <input type="text" name="breed" class="form-control" required>
                                         </div>
 
                                     </div>
-                                    <!--Grid column-->
 
-                                    <!--Grid column-->
                                     <div class="col-lg-4 col-md-6 mb-4">
+                                        <!--location-->
+                                        <div class="md-form">
+                                            <input type="text" name="location" class="form-control">
+                                            <label for="location" class="">Doggy Location</label>
+                                        </div>
+                                    
+                                    </div>
+
+                                    {{!-- sex --}}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                            <br>
+                                            <select class="form-control" name="sex" onchange="$('#defaultOption').remove()">
+                                                Sex:
+                                                <option value="" id="defaultOption" disabled selected>Doggy sex</option>
+                                                <option>male</option>
+                                                <option>female</option>
+                                            </select>
+                                    </div>
+
+                                    {{!-- bio/description --}}
+                                    <div class="col-12">
+                                        <textarea class="form-control" name="description" rows="3" placeholder="Tell us something about your dog and yourself." required></textarea>
+                                    </div>
+
+                                    {{!-- <div class="col-lg-4 col-md-6 mb-4">
 
                                         <label for="state">State</label>
                                         <select class="custom-select d-block w-100" id="state" required>
                                             <option value="">Choose...</option>
-                                            <option>California</option>
+                                            <option>Minnesota</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             Please provide a valid state.
                                         </div>
 
-                                    </div>
-                                    <!--Grid column-->
+                                    </div> --}}
 
-                                    <!--Grid column-->
-                                    <div class="col-lg-4 col-md-6 mb-4">
+                                    <!--email-->
+                                    <div class="col-12 mb-4">
 
-                                        <label for="zip">Zip</label>
-                                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                                        <div class="invalid-feedback">
-                                            Zip code required.
+                                        <div class="md-form">
+                                            <label for="email">email</label>
+                                            <input type="text" class="form-control" name="email" required>
+                                            <div class="invalid-feedback">
+                                                Email required.
+                                            </div>
                                         </div>
 
                                     </div>
-                                    <!--Grid column-->
+
+                                    <!--password-->
+                                    <div class="col-12 mb-4">
+                                    
+                                        <div class="md-form">
+                                            <label for="password">password</label>
+                                            <input type="password" class="form-control" name="password" required>
+                                            <div class="invalid-feedback">
+                                                Password required.
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                    
+                                        <div class="md-form">
+                                            <label for="confirmPassword">confirm password</label>
+                                            <input type="password" class="form-control" name="confirmPassword" required>
+                                            <div class="invalid-feedback">
+                                                Confirm password required.
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+    
+                                    <div class="col-12"
+                                    style="color: rgb(72, 72, 72); text-align: center">
+                                        Profile Image:
+                                        <hr>
+                                    </div>
+
+                                    {{!-- image url --}}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                    
+                                        <div class="md-form">
+                                            <label for="imgURL">image url</label>
+                                            <input type="text" class="form-control" name="imgURL" 
+                                                placeholder="https://yt3.ggpht.com/a-/AAuE7mADdvvvDy2jJr4ajyHsv0Q26gTURdLpWQbJgg=s900-mo-c-c0xffffffff-rj-k-no"
+                                                onchange="previewImg()">
+                                        </div>
+                                    
+                                    </div>
+                                    {{!-- image preview --}}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <img id="profileImg" width="100%" src="https://yt3.ggpht.com/a-/AAuE7mADdvvvDy2jJr4ajyHsv0Q26gTURdLpWQbJgg=s900-mo-c-c0xffffffff-rj-k-no">
+                                    </div>
+
+                                    {{!-- fail message --}}
+                                    <div style="color: red" id="errorMsg">
+                                        <br>
+                                    </div>
+
+                                    {{!-- submit button --}}
+                                    <div class="col-12">
+                                        <a style="float:left" width="100%" class="btn btn-outline-black" onclick="submit()" target="_blank" role="button">Submit
+                                            <i class="fas fa-dog mr-4"></i>
+                                        </a>
+                                        <a style="float:right" width="100%" class="btn btn-outline-black" onclick="cancel()" target="_blank" role="button">Cancel
+                                        </a>
+                                    </div>
 
                                 </div>
-                                <!--Grid row-->
+                                <!--/row-->
 
 
+                            </form>
 
                         </div>
                         <!--Grid column-->
@@ -192,11 +236,6 @@
 
                 </div>
                 <!--Grid row-->
-                <div class="pt-4">
-                    <a class="btn btn-outline-white" href="enterlinkhere" target="_blank" role="button">Submit
-                        <i class="fas fa-dog mr-4"></i>
-                    </a>
-                </div>
             </div>
         </main>
         <!--Main layout-->
@@ -218,6 +257,54 @@
         <script type="text/javascript">
             // Animations initialization
             new WOW().init();
+        </script>
+        <script>
+            function previewImg() {
+                $('#profileImg')
+                    .attr('src', $('input[name="imgURL"]').val());
+            }
+            function submit() {
+                var fields = [
+                    "name", // (not null)
+                    "email", // (not null)
+                    "password", // (not null)
+                    "confirmPassword",
+                    "breed", // (not null)
+                    "description", // (not null)
+                    "location", // (not null)
+                    "birthdate",
+                    "sex",
+                    "imgURL"
+                    // visible,
+                    // authtoken,
+                    // validated
+                ];
+                var doge = {};
+                // get all fields from the form
+                fields.forEach(field => {
+                    doge[field] = $("input[name='" + field + "']").val() || $("textarea[name='" + field + "']").val();
+                });
+                // post a request
+                $.ajax({
+                    type: "POST",
+                    url: "/api/newdoge",
+                    data: doge,
+                    success: (res) => {
+                        $("body").empty().text("Profile created successfully.  Logging you in...");
+                        setTimeout(() => {
+                            window.location.href = "/home/" + res.id;
+                        }, 3000)
+                    },
+                    error: (jqXHR, textStatus, error) => {
+                        // display error message
+                        console.log(JSON.stringify(jqXHR.responseText));
+                        $("#errorMsg").empty().text(jqXHR.responseText);
+                    }
+                })
+            }
+            function cancel() {
+                window.location.href = "/";
+            }
         </script>
 </body>
 

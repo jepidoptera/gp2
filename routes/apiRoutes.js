@@ -15,7 +15,12 @@ module.exports = function(app) {
     app.post("/api/newdoge", function (req, res) {
         // add a new doge from the form data
         console.log("creating: " + JSON.stringify(req.body));
-        // do some validation: make sure we're not reusing an email or username
+        // do some validation: do passwords match?
+        if (req.body.password != req.body.confirmPassword) {
+            res.status(409).send("passwords do not match: ", req.body.password, req.body.confirmPassword);
+            return;
+        }
+        // make sure we're not reusing an email or username
         doges.findAll({ where: { name: req.body.name } }).then(data => {
             if (data.length > 0) {
                 console.log(JSON.stringify(data));
@@ -34,6 +39,9 @@ module.exports = function(app) {
         doges.create(req.body).then(data => {
             // reload home page
             res.send(data.dataValues);
+        }).catch(err => {
+            console.log(err.errors[0].message);
+            res.status(409).send(err.errors[0].message);
         });
     });
 
