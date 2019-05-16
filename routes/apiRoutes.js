@@ -86,15 +86,15 @@ module.exports = function(app) {
     });
 
     app.get("/api/messages/convo/:user1ID/:user2ID/:since?", function (req, res) {
-        console.log("retrieving message chain:");
+        // console.log("retrieving message chain:");
         // find user1
         doges.findOne({where: {id: req.params.user1ID}
         }).then((user1) => {
-            console.log("found user: " + user1.name);
+            // console.log("found user: " + user1.name);
             // find user2
             doges.findOne({ where: { id: req.params.user2ID } }).then((user2) => {
-                console.log("found user: " + user2.name);
-                console.log("getting all messages between " + user1.name + " and " + user2.name + "... since " + req.params.since);
+                // console.log("found user: " + user2.name);
+                // console.log("getting all messages between " + user1.name + " and " + user2.name + "... since " + req.params.since);
                 messages
                   .findAll({
                       where: {
@@ -117,7 +117,7 @@ module.exports = function(app) {
                     }
                   })
                   .then(messages => {
-                      console.log(JSON.stringify(messages));
+                    //   console.log(JSON.stringify(messages));
                       res.json(messages);
                   });
             });
@@ -136,15 +136,22 @@ module.exports = function(app) {
             .then((data) => { res.send(data); });
     });
 
-    // Delete an example by id
-    app.delete("/api/examples/:id", function(req, res) {
-        db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-        res.json(dbExample);
+    app.post("/api/message/read", function (req, res) {
+        // check auth
+        if (!authorize(req.body.username, req.body.authtoken)) {
+            res.status(400).send("invalid auth token");
+            return;
+        }
+        console.log('marking message ' + req.body.id + " as read.");
+        // update the specified message as "read"
+        messages.update({ unread: false }, { where: { id: req.body.id } }).then(data => {
+            res.json(data);
         });
     });
 };
 
 function findDoge(conditions, res) {
+    // find a given doge according to some conditions
     doges
         .findOne({ where: conditions })
         .then(doge => {
@@ -164,4 +171,8 @@ function randomHexNumber(length) {
     }
     return returnVal;
 }    
+
+function authorize(username, authtoken) {
+    return true;
+}
 

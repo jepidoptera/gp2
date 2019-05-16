@@ -9,7 +9,7 @@
 {{!-- <body class="black"> --}}
 
   <!--Main Navigation-->
-  <div class="header">
+  <div id="titlebar" class="header">
 
     <!-- Navbar -->
 
@@ -51,8 +51,11 @@
                 <i class="	fas fa-dog mr-4"></i>Profile</a>
             <a class="tabButton list-group-item waves-effect" 
                 id="getmessages" 
-                onclick="showWindow('messages');">
-                <i class="	fas fa-dog mr-4"></i>Messages</a>
+                onclick="showWindow('messages'); showMessages()">
+                <i class="	fas fa-dog mr-4"></i>
+                Messages
+                <div id="newMessages" class="messageAlert">0</div>
+            </a>
         </div>
 
         {{!-- content windows --}}
@@ -62,17 +65,24 @@
             <div class= "content-window" id="profile" style="display: none">      
                 {{!-- <img id="firstPic" src="https://d3jjg4nf4bbybe.cloudfront.net/u/64047/a19fb2d6368a1a3a57d32838884733aac69f9570/medium/ralph-4.jpg"> --}}
                     
-                <div style="width: 100%; height: 400px; text-align: center">
+                {{!-- <div style="width: 100%; height: 400px; text-align: center">
                     <img id="secondPic" src="{{imgURL}}" style="max-width: 100%; max-height: 100%; display: inline-block"
                         alt="dog picture">
-                </div>
+                </div> --}}
                 <p>Name: {{name}}</p>
                 <p>Breed: {{breed}}</p>
                 <p>Sex: {{sex}}</p>
                 <p>Location: {{location}}</p>
                 <p>Description: {{description}}</p>
+                <div class="row">
+                    <div class="col-12 bottombar" id="chatControls">
+                        <button class="rowbutton" id="changeProfileInfo" style="left: 25%"
+                            onclick="window.location.href='/'">Sign Out</button>
+                        <button class="rowbutton" id="changeProfileInfo" style="left: 75%"
+                            onclick="showWindow('signup');">Edit Personal Info</button>
+                    </div>>
+                </div>
 
-                <button class="editInfo"  id="changeProfileInfo" onclick="showWindow('signup');" >"Edit Personal Info"</button>
             </div>        
         
       
@@ -96,9 +106,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 rowcontainer">
+                    <div class="col-12 bottomBar">
                         <br>
-                        <button class='rowbutton' style="left: 25%" onclick="showWindow('sendMessage'); showMessages();">send message</button>
+                        <button class='rowbutton' style="left: 25%" onclick="showWindow('convo'); showConvo();">send message</button>
                         <button class='rowbutton' style="left: 75%" onclick="nextMatch()">next</button>
                         <br>
                         <span style="color:black">' let's have some space here please for fuck's sake '</span>
@@ -108,38 +118,28 @@
           
 
             <div class="content-window" id="messages" style="display: none">
-                {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
-                <h3>OTHER DOGES:</h3>
-                <br>
-                <ul>
-                    {{#each otherDogs}}
-                    <li data-id="{{this.id}}" class="list-group-item">
-                        <p>name: {{name}}</p>
-                        <p>breed: {{breed}}</p>
-                        <p>location: {{location}}</p>
-                        <p>description: {{description}}</p>
-                        {{!-- <a href="doge/{{this.id}}">{{this.text}}</a>
-                <button class="btn btn-danger float-right delete">ｘ</button> --}}
-                        <button onclick="window.location.href='/convo/{{../id}}/{{id}}'">
-                            send message
-                        </button>
-                    </li>
-                    {{/each}}
-                </ul>
-                <br>
 
             </div>
 
-            <div class="content-window" id="sendMessage" style="display: none">
+            <div class="content-window" id="convo" style="display: none">
                 {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
-                <div id="convo" onclick="checkMessages()">
+                <div id="prevMessages" onclick="checkMessages()">
 
                 </div>
-                message to: <span id="msgRecipient"></span>
-                <input type="text" id="msgText">
-                <button onclick="sendMessage()">Send</button>
+                <div class="row">
+                    <div class="col-12 bottombar" id="chatControls">
+                        <button class="rowbutton" style="left: 10%" 
+                            onclick="showWindow(lastWindow)"><--Back</button>
+                        <span style="position:absolute; bottom: 50px; left: 50%; transform: translate(-50%)">
+                            message to: <span id="msgRecipient"></span>
+                            <input type="text" id="msgText">
+                        </span>
+                        <button class="rowbutton" style="left: 90%" 
+                            onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div> <!-- content-window col-8-md -->
     </div>
 </div>
         
@@ -156,16 +156,32 @@
 <script>
     var matches = [];
     var currentMatch = 0;
-    $("document").ready(() => {
-        // have these ready
-        getMatches();
-    })
+    var currentWindow = "matches";
+    var lastWindow = "";
+    var unreadMessages = 0;
 
-    function showWindow(selectedWindow) {
+    $(document).ready(() => {
+        // have these ready
+        console.log('starting up...');
+        getMatches();
+    });
+
+    // automatic actions when enter is pressed
+    $(document).keydown ((event) => {
+        if (currentWindow == "convo") {
+            if (event.key == "Enter") {
+                sendMessage();
+            }
+        }
+    });
+
+    function showWindow(windowName) {
         $(".tabButton").removeClass("active");
-        $("#get" + selectedWindow).addClass("active");
+        $("#get" + windowName).addClass("active");
         $(".content-window").hide();
-        $('#'+ selectedWindow).show();
+        $('#'+ windowName).show();
+        lastWindow = currentWindow;
+        currentWindow = windowName;
     };
 
     function getMatches() {
@@ -173,12 +189,14 @@
             url: "/api/allDoges",
             type: "GET",
             success: (doges) => {
+                // add a message array to each
+                doges.forEach(doge => doge.messages = []);
                 matches = doges;
                 console.log("found " + doges.length + " doges.");
                 // show the first suitable one
                 nextMatch();
                 // look for messages nex
-                getMessages();
+                checkMessages();
             },
             error: (jqXHR, textStatus, error) => {
                 // display error message
@@ -213,75 +231,132 @@
         $("#matchDescription").text(matches[number].description)
     }
 
-    function getMessages () {
-        // retrieve all conversations with all other users
-        matches.forEach(match => {
-            $.ajax({
-                url: "/api/messages/convo/{{id}}/" + match.id,
-                type: "GET",
-                success: (messages) => {
-                    // save them for this match
-                    match.messages = messages;
-                    console.log("messages between {{name}} and " + match.name + ": " + messages.length);
-                },
-                error: (jqXHR, textStatus, error) => {
-                    // display error message
-                    console.log(JSON.stringify(jqXHR));
-                    $("#messages").empty().css({color: "red"}).text(jqXHR.responseText);
+    function showConvo () {
+        var match = matches[currentMatch];
+        console.log("showing conversation with: " + match.name);
+        if (currentWindow == "convo") {
+            match.messages.slice(-match.unreadMessages).forEach(message => {
+                if (message.recipient == {{id}}) {
+                    // mark as read
+                    $.post("/api/message/read", {
+                        username: "{{name}}",
+                        authtoken: localStorage.authtoken,
+                        id: message.id
+                    })
                 }
             })
-            // "/api/messages/convo/:user1ID/:user2ID/:since?"
-        })
+            // all messages from this user are read.
+            match.unreadMessages = 0;
+        }
+        // show all the messages
+        console.log("showing messages with: " + matches[currentMatch].name)
+        $("#prevMessages").empty();
+        matches[currentMatch].messages.forEach(message => {
+            $("#prevMessages").append($("<p>").text(getDogeByID(message.sender).name + ": " + message.text));
+        });
+        // scroll to the bottom
+        $("#prevMessages").scrollTop($("#prevMessages")[0].scrollHeight);
+        // show who you're talking to
+        $("#msgRecipient").text(matches[currentMatch].name);
     }
 
     function showMessages () {
-        console.log("showing messages with: " + matches[currentMatch].name)
-        $("#convo").empty();
-        matches[currentMatch].messages.forEach(message => {
-            $("#convo").append($("<p>").text(getDogeByID(message.sender).name + ": " + message.text));
+        var messages = matches.map((match, i) => {
+            // get just the last message from each match
+            if (match.messages.length > 0) {
+                // create a message object
+                var lastMessage = match.messages.slice(-1)[0];
+                var msgBox = Object.assign({}, 
+                    lastMessage,
+                    {with: match.name,
+                    matchIndex: i,
+                    sender: (lastMessage.sender == {{id}} ? "you" : match.name),
+                    // truncate text if it's more than 60 chars
+                    text: (lastMessage.text.length > 60 ? 
+                        lastMessage.text.slice(50) + "..." : lastMessage.text),
+                    img: $("<img>").addClass("thumbnail").attr('src', match.imgURL),
+                    unread: match.unreadMessages});
+                console.log(msgBox);
+                return msgBox;
+            } 
+            else return {};
         })
-        $("#msgRecipient").text(matches[currentMatch].name);
-        matches.forEach(match => {
-            // console.log(match.name);
-        });
+        // sort them by ID (most recent first)
+        messages.sort((a, b) => {return a.id - b.id});
+        // clear current messages
+        $("#messages").empty();
+        // append to contentWindow
+        messages.forEach(message => {
+            if (message.unread) console.log(message.unread + "unread messages from " + message.with);
+            if (message.text) {
+                $("#messages").append(
+                    // make a div to hold this exchange
+                    $("<div>").addClass("convoContainer").append(
+                        message.img,
+                        $("<span>").css({ "font-weight": "400", "font-size": "16pt" }).text(message.with),
+                        // add a little notification thingy if there are unread messages
+                        (message.unread ?
+                            $("<div>").addClass("messageAlert").text(message.unread).show() : null),
+                        // show text of most recent message and who sent it
+                        $("<p>").text("-- " + message.sender + " said: " + message.text)
+                    ).click(() => {
+                        // on click, show this message in context
+                        currentMatch = message.matchIndex;
+                        showWindow("convo");
+                        showConvo();
+                    })
+                )
+            }
+        })
+        console.log("showing all messages:");
     }
 
     function getDogeByID (id) {
         for (i=0; i<matches.length; i++) {
             var match = matches[i];
-            console.log("checking id: " + match.id)
+            // console.log("checking id: " + match.id)
             if (match.id == id) {
-                console.log(match.name)
+                {{!-- console.log(match.name) --}}
                 return match;
             }
         }
     }
 
     function sendMessage () {
-        $.post("/api/message", {
-            sender: {{id}},
-            recipient: matches[currentMatch].id,
-            text: $("#msgText").val()
-        }).then (res => {
-            console.log(JSON.stringify(res));
-            $("#msgText").val("");
-        })
+        var message = $("#msgText").val();
+        // is there anything in the box?
+        if (message) {
+            $.post("/api/message", {
+                sender: {{id}},
+                recipient: matches[currentMatch].id,
+                text: message
+            }).then (res => {
+                console.log(JSON.stringify(res));
+                $("#msgText").val("");
+                $("#prevMessages").append("{{name}}" + ": " + message)
+            })
+        }
     }
 
     function checkMessages () {
         matches.forEach(match => {
             $.ajax({
-                url: "/api/messages/convo/{{id}}/" + match.id + "/" + (match.messages ? match.messages.slice(-1)[0].id : 0),
+                url: "/api/messages/convo/{{id}}/" + match.id + "/" + (match.messages.length > 0 ? match.messages.slice(-1)[0].id : 0),
                 type: "GET",
                 success: (messages) => {
                     // save them for this match
-                    if (messages) {
+                    if (messages.length > 0) {
+                        // add all new messages to the array for this match
                         match.messages = match.messages.concat(messages);
+                        // count how many have not been read yet
+                        match.unreadMessages = messages.reduce((sum, message) => {return sum += message.unread ? 1 : 0}, 0);
+                        console.log(match.unreadMessages + " unread messages from " + match.name);
                         if (match == matches[currentMatch]) {
-                            showMessages();
+                            // update convo window if relevant
+                            showConvo();
                         }
                     }
-                    console.log("messages between {{name}} and " + match.name + ": " + messages.length);
+                    if (messages.length) console.log("messages between {{name}} and " + match.name + ": " + messages.length);
                 },
                 error: (jqXHR, textStatus, error) => {
                     // display error message
@@ -291,8 +366,14 @@
             })
             // "/api/messages/convo/:user1ID/:user2ID/:since?"
         })
+        // add up all unread messages
+        unreadMessages = matches.reduce((sum, match) => {return sum + (match.unreadMessages || 0)}, 0);
+        // show little message notification thingy
+        if (unreadMessages) $("#newMessages").show().text(unreadMessages);
+        // or hide it if there are no new ones
+        else $("#newMessages").hide();
     }
-    {{!-- setInterval(checkMessages, 2000); --}}
+    setInterval(checkMessages, 2000);
 </script>
 
 

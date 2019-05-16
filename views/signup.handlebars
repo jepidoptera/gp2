@@ -273,6 +273,7 @@
                     "password", // (not null)
                     "confirmPassword",
                     "breed", // (not null)
+                    "age",
                     "description", // (not null)
                     "location", // (not null)
                     "birthdate",
@@ -283,9 +284,13 @@
                     // validated
                 ];
                 var doge = {};
-                // get all fields from the form
+                // get all input fields from the form
                 fields.forEach(field => {
-                    doge[field] = $("input[name='" + field + "']").val() || $("textarea[name='" + field + "']").val();
+                    doge[field] = 
+                    // one of these should work...
+                        $("input[name='" + field + "']").val() ||
+                        $("textarea[name='" + field + "']").val() ||
+                        $("select[name='" + field + "']").val();
                 });
                 // post a request
                 $.ajax({
