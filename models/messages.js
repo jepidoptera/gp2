@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
+        unread: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        }
     });
     // // do createdAt in unix time
     // Messages.beforeCreate((record, options) => {

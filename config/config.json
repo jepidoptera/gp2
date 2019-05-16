@@ -5,7 +5,8 @@
     "database": "gp6lg2zdwy840eb4",
     "host": "tuy8t6uuvh43khkk.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,    
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "test": {
     "username": "root",
