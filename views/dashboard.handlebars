@@ -132,7 +132,7 @@
 
             <div class="content-window" id="sendMessage" style="display: none">
                 {{!-- <img id="matchedImage" src="/images/dragon.jpg" alt="dog picture"> --}}
-                <div id="convo">
+                <div id="convo" onclick="checkMessages()">
 
                 </div>
                 message to: <span id="msgRecipient"></span>
@@ -271,11 +271,16 @@
     function checkMessages () {
         matches.forEach(match => {
             $.ajax({
-                url: "/api/messages/convo/{{id}}/" + match.id + "/" + match.messages.slice(-1),
+                url: "/api/messages/convo/{{id}}/" + match.id + "/" + (match.messages ? match.messages.slice(-1)[0].id : 0),
                 type: "GET",
                 success: (messages) => {
                     // save them for this match
-                    match.messages = messages;
+                    if (messages) {
+                        match.messages = match.messages.concat(messages);
+                        if (match == matches[currentMatch]) {
+                            showMessages();
+                        }
+                    }
                     console.log("messages between {{name}} and " + match.name + ": " + messages.length);
                 },
                 error: (jqXHR, textStatus, error) => {
@@ -287,6 +292,7 @@
             // "/api/messages/convo/:user1ID/:user2ID/:since?"
         })
     }
+    {{!-- setInterval(checkMessages, 2000); --}}
 </script>
 
 
