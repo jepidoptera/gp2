@@ -185,7 +185,8 @@
     $(document).ready(() => {
         // have these ready
         console.log('starting up...');
-        currentMatch={{lastMatch}};
+        // this should work even if lastMatch is null
+        currentMatch= parseInt("0{{lastMatch}}");
         getMatches();
     });
 
