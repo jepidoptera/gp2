@@ -29,13 +29,17 @@ module.exports = function(app) {
 
     app.get("/data", function (req, res) {
         db.Doge.findAll().then(function (dogs) {
-            res.render("index", {
+            res.render("testing", {
                 msg: "Welcome!",
                 dogs: dogs
             });
         });
     });
 
+    // about page
+    app.get("/about", function (req, res) {
+        res.sendFile(path.join(__dirname, "..", "public", "html", "about.html"));
+    })
 
     app.get("/messages/:userID", function (req, res) {
         // find current user

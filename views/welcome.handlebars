@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Dog Breeding App</title>
+  <title>dogFire</title>
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> -->
   <!-- Bootstrap core CSS -->
@@ -54,8 +54,10 @@
         <div class="container">
 
             <!-- Brand -->
-            <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-                <strong>The Barker</strong>
+            <a class="navbar-brand" href="/about" target="_blank" style="width: 100%">
+              <span id="brandLogo">
+                <strong>🔥dogFire🔥</strong>
+              </span>
             </a>
 
             <!-- Collapse -->
@@ -63,52 +65,6 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <!-- Left -->
-                {{!-- <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/home">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About The
-                            Barker</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
-                            target="_blank">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Browse
-                            Your Matches</a>
-                    </li>
-                </ul> --}}
-
-                <!-- Right -->
-                {{!-- <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://github.com/jepidoptera/gp2" class="nav-link border border-light rounded"
-                            target="_blank">
-                            <i class="fab fa-github mr-2"></i>GitHub
-                        </a>
-                    </li>
-                </ul> --}}
-
-            </div>
 
         </div>
     </nav>
@@ -166,6 +122,7 @@
                   </h3>
                   <hr>
 
+                  {{!-- username --}}
                   <div class="md-form">
                     <i class="fas fa-user prefix grey-text"></i>
                     <input id="username" type="text" id="form3" class="form-control">
@@ -173,6 +130,7 @@
                   </div>
                 
 
+                  {{!-- password --}}
                   <div class="md-form">
                     <i class="fas fa-pencil-alt prefix grey-text"></i>
                     <input type="password" id="password" class="form-control"></input>
