@@ -73,6 +73,19 @@ module.exports = function(app) {
         });  
     });
 
+    app.post("/api/sawmatch", function (req, res) {
+        // check auth
+        if (!authorize(req.body.userID, req.body.authtoken)) {
+            res.status(400).send("invalid auth token");
+            return;
+        }
+        // update which match they saw last (so no repeats)
+        doges.update({ lastMatch: req.body.matchID }, { where: { id: req.body.userID } }).then((data) => {
+            console.log("user " + req.body.userID + " saw user " + req.body.matchID);
+            console.log(data);
+        });
+    });
+
     app.get("/api/name/:dogename", function (req, res) {
         // look up by username
         console.log("getting info on user with name: " + req.params.dogename);
@@ -138,13 +151,14 @@ module.exports = function(app) {
 
     app.post("/api/message/read", function (req, res) {
         // check auth
-        if (!authorize(req.body.username, req.body.authtoken)) {
-            res.status(400).send("invalid auth token");
-            return;
+        if (!authorize(req.body.userID, req.body.authtoken)) {
+          res.status(400).send("invalid auth token");
+          return;
         }
         console.log('marking message ' + req.body.id + " as read.");
         // update the specified message as "read"
         messages.update({ unread: false }, { where: { id: req.body.id } }).then(data => {
+            console.log("message: " + JSON.stringify(data));
             res.json(data);
         });
     });
@@ -172,7 +186,7 @@ function randomHexNumber(length) {
     return returnVal;
 }    
 
-function authorize(username, authtoken) {
+function authorize(userID, authtoken) {
     return true;
 }
 

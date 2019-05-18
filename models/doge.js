@@ -41,6 +41,9 @@ module.exports = function(sequelize, DataTypes) {
         },
         validated: {
             type: DataTypes.BOOLEAN
+        },
+        lastMatch: {
+            type: DataTypes.INTEGER
         }
     });
     return Doges;

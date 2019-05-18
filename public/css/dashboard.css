@@ -41,7 +41,8 @@
 }
 
 #prevMessages {
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: Calc(100vh - 250px);
     width: Calc(100% - 20px);
     margin: 10px;
@@ -56,13 +57,16 @@
 .messageAlert {
     width: 30px;
     height: 30px;
+    line-height: 30px;
     border-radius: 15px;
     color: white;
     background-color: orangered;
     font-weight: 400;
     font-size: 18;
     text-align: center;
+    vertical-align: middle;
     display: inline-block;
+    margin-left: 10px;
 }
 
 .thumbnail {
@@ -76,4 +80,5 @@
 .convoContainer {
     border: 1px solid white;
     cursor: pointer;
+    color: white;
 }
