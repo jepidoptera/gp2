@@ -5,7 +5,8 @@
     "database": "gp6lg2zdwy840eb4",
     "host": "tuy8t6uuvh43khkk.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,    
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "test": {
     "username": "root",
@@ -13,7 +14,8 @@
     "database": "doges",
     "host": "localhost",
     "port": 8889,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "production": {
     "use_env_variable": "JAWSDB_URL",
