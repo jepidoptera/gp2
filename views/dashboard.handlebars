@@ -248,8 +248,8 @@
         var failed = false;
         while (failed === false) {
             currentMatch ++;
+            if (currentMatch >= matches.length) currentMatch = 0;
             if (matches[currentMatch]) {
-                if (currentMatch >= matches.length) currentMatch = 0;
                 // see if this is a suitable match
                 if (matches[currentMatch].name != "{{name}}") {
                     // show it and get out
