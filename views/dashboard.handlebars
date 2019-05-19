@@ -296,7 +296,27 @@
         console.log("showing messages with: " + matches[currentMatch].name)
         $("#prevMessages").empty();
         matches[currentMatch].messages.forEach(message => {
-            $("#prevMessages").append($("<p>").text(getDogeByID(message.sender).name + ": " + message.text));
+                $("#prevMessages").append(
+                    $("<p>")
+                    .addClass("messageContainer")
+                    .append(
+
+                        $("<img>").addClass("thumbnail")
+                        .attr('src',
+                            // show little thumbnail image from whomever sent this message
+                            (message.sender == {{ id }} ?"{{imgURL}}" : matches[currentMatch].imgURL))
+                        .css({
+                            "float":
+                                // your thumbnails go on the left, theirs on the right
+                                (message.sender == {{ id }} ?"left" : "right")
+                        }),
+
+                        $("<span>").text(message.text)
+                            .addClass("messageTextContainer")
+                            .css({ "float": (message.sender == {{ id }} ?"left" : "right")})
+                    )
+                );
+
         });
         // scroll to the bottom
         $("#prevMessages").scrollTop($("#prevMessages")[0].scrollHeight);
@@ -320,13 +340,12 @@
                         lastMessage.text.slice(50) + "..." : lastMessage.text),
                     img: $("<img>").addClass("thumbnail").attr('src', match.imgURL),
                     unread: match.unreadMessages});
-                console.log(msgBox);
                 return msgBox;
             } 
             else return {};
         })
         // sort them by ID (most recent first)
-        messages.sort((a, b) => {return a.id - b.id});
+        messages = messages.filter(m => { return m.id }).sort((a, b) => {return b.id - a.id});
         // clear current messages
         $("#messages").empty();
         // append to contentWindow
@@ -400,8 +419,6 @@
                     if (messages.length > 0) {
                         // add all new messages to the array for this match
                         match.messages = match.messages.concat(messages);
-                        // count how many have not been read yet
-                        match.unreadMessages = messages.reduce((sum, message) => {return sum += (message.unread && message.recipient=={{id}} ? 1 : 0)}, 0);
                         console.log(match.unreadMessages + " unread messages from " + match.name);
                         if (currentWindow== "convo" && match == matches[currentMatch]) {
                             // update convo window if relevant
@@ -410,6 +427,9 @@
                         else if (currentWindow=="messages") showMessages();
                     }
                     if (messages.length) console.log("messages between {{name}} and " + match.name + ": " + messages.length);
+                    // count how many have not been read yet
+                    match.unreadMessages = messages.reduce((sum, message) => {
+                        return sum += (message.unread && message.recipient=={{id}} ? 1 : 0)}, 0);
                 },
                 error: (jqXHR, textStatus, error) => {
                     // display error message

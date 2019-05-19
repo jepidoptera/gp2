@@ -46,7 +46,8 @@
     height: Calc(100vh - 250px);
     width: Calc(100% - 20px);
     margin: 10px;
-    border: solid white
+    border: solid white;
+    text-align: center;
 }
 
 #chatControls {
@@ -73,8 +74,25 @@
     max-width: 50px;
     max-height: 50px;
     border: 1px solid white;
-    display: inline;
     margin: 0 10px;
+    display: inline-block;
+    top: 50%
+}
+
+.messageContainer {
+    min-height: 50px;
+    margin: 5px;
+    vertical-align: middle;
+    position: relative
+}
+
+.messageTextContainer {
+    min-height: 50px;
+    max-width: 75%;
+    border: 1px solid gray;
+    border-radius: 15px;
+    margin: 0 15px;
+    padding: 10px
 }
 
 .convoContainer {
