@@ -190,6 +190,14 @@
 </html>
 
 <script>
+    // automatic login when enter is pressed
+    $(document).keydown((event) => {
+        if ($("#password").val() && $("#username").val()) {
+            if (event.key == "Enter") {
+                login();
+            }
+        }
+    });
     function login() {
         console.log("looking up: " + $("#username").val());
         $.ajax({
