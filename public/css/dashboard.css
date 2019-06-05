@@ -1,3 +1,13 @@
+#sidebar{
+  /* background-color: red; */
+  height:auto;
+  /* border:red solid; */
+}
+#userImage{
+  width: 50%;
+  height:auto;
+}
+
 #matchPicContainer {
     width: 100%; 
     height: 400px; 
@@ -13,7 +23,7 @@
 } */
 
 .content-window{
-  border: blue solid;
+  /* border: blue solid; */
   text-align: center;
   color: white;
   width: 100%;
@@ -75,7 +85,7 @@
     max-height: 50px;
     border: 1px solid white;
     margin: 0 10px;
-    display: inline-block;
+    display: block;
     top: 50%
 }
 

@@ -25,16 +25,6 @@
   background-color: white;
   height:auto;
 }
-#sidebar{
-  /* background-color: red; */
-  height:auto;
-  border:red solid;
-}
-#userImage{
-  width: 50%;
-  height:auto;
-}
-
 .tabButton {
   cursor: pointer;
 }
